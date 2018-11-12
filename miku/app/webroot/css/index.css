@@ -1,0 +1,242 @@
+@font-face {
+	font-family: 'SCRIPTBL';
+	src: url('../fonts/ScriptMTBold/SCRIPTBL.eot');
+    src: local('SCRIPTBL'), 
+    url('../fonts/ScriptMTBold/SCRIPTBL.woff') format('woff'), 
+    url('../fonts/ScriptMTBold/SCRIPTBL.ttf') format('truetype');
+}
+@font-face {
+    font-family: 'berkshire_swashregular';
+    src: url('../fonts/Berkshireswash/berkshireswash-regular-webfont.eot');
+    src: url('../fonts/Berkshireswash/berkshireswash-regular-webfont.eot?#iefix') format('embedded-opentype'),
+      url('../fonts/Berkshireswash/berkshireswash-regular-webfont.woff') format('woff'),
+      url('../fonts/Berkshireswash/berkshireswash-regular-webfont.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+  }
+html{
+    min-height: 100%;
+    position: relative;
+}
+body{
+    background: #F8F8F8;
+    margin: 0;
+    margin-bottom: 40px;
+}
+
+/*... HEADER ...*/
+header{
+    background: #222222;
+}
+header .container div .titulo-principal{
+    text-align: center;
+    color: #58C56F;
+    margin: 2px auto;
+    font-family: 'SCRIPTBL' !important;
+}
+header .container div .titulo-principal::first-letter{
+    color: #FFF;
+    font-family: 'SCRIPTBL' !important;
+}
+.red-social{
+    color: #9d9d9d;
+    font-size: 20px;
+    padding: 10px 3px;
+}
+header .container div .cuadro-logo{
+    margin: 5px 10px;
+}
+header .container div .cuadro-logo img{
+    display: block;
+    margin: 0 auto;
+}
+hr{
+    margin-top: 0px;
+    margin-bottom: 0px;
+    border-color: rgba(201,184,145, 0.4);
+}
+.barra-menu{
+    float: left;
+}
+.sesion{
+    float: right;
+}
+.sesion i{
+    color: rgba(88, 197, 111, 0.3);
+    padding-left: 3px;
+}
+.sesion a{
+    color: #9d9d9d;
+}
+header .container div div.row div .sesion{
+    padding-top: 60px;
+}
+header .container div div.row div .sesion a{
+    display: inline-block;
+}
+header .container nav div .sesion{
+    padding-top: 15px;
+}
+
+/*Modal: Inicia Sesión*/
+.estilo-modal{
+    background: rgba(201, 184, 145, 0.9);
+}
+.modal-title{
+    text-align: center;
+    font-size: 35px;
+    font-family: 'berkshire_swashregular' !important;
+    color: #1E1E1E;
+}
+.titulo-iniciar-sesion{
+    font-size: 23px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'berkshire_swashregular';
+}
+.logo-iniciar-sesion{
+    float: left;
+}
+.izquierda-inicia-sesion{
+    border-right: 1px solid #E5E5E5;
+}
+.frase-registrar{
+    margin-top: 10px;
+    font-style: italic;
+    color: #1E1E1E;
+}
+.recupera-pass{
+    display: block; 
+    margin-top: 10px;
+}
+div input + label{
+    color: #857f7f;
+}
+div input + label a{
+    color: rgb(56, 94, 119);
+}
+div input:checked + label{
+    color: #1E1E1E;
+}
+div input:checked + label a{
+    color: #007ACC;
+}
+
+/*Modal: registro final*/
+.frase-registro-final{
+    text-align: center;
+    color: #1E1E1E;
+    font-style: italic;
+}
+
+/*VALIDACIÓN*/
+.resalta-error{
+    box-shadow: 0px 0px 3px 3px rgb(189, 63, 63);
+}
+.obligatorio{
+    color: red;
+}
+
+/*Carousel - Slider*/
+div.carousel-inner .item div h1{
+    font-size: 7vw;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'berkshire_swashregular';
+    text-shadow: 3px 3px 5px #252323;
+}
+div.carousel-inner .item div p{
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    font-family: 'berkshire_swashregular';
+    text-shadow:  1px 1px 2px black, 
+                  0 0 25px #1E1E1E,
+                  0 0 5px black;
+}
+
+/*... MAIN ...*/
+div main{
+    margin-bottom: 20px;
+}
+div main div.row div h2{
+    background: rgba(211, 150, 24, 0.5);
+    margin: 10px auto;
+    padding: 10px 5px;
+    font-weight: bold;
+    border-radius: 5px;
+    font-size: 20px;
+}
+div main div.row div figure{
+    background: #F8F8F8;
+    border: 1px solid #CCCCCC;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+div main div.row div figure a{
+    position: relative;    
+}
+div main div.row div figure a img:hover{
+    opacity: 0.7;
+}
+span.precio{
+    /*clase de bootsrap col-* posicionado, se tomará como 
+    referencia para este .precio*/
+    position: absolute;
+    width: 80px;
+    height: 50px;
+    right: -15px;
+    bottom: 10px;
+    text-align: center;
+    padding: 8px 2px 2px 2px;
+    font-family: 'berkshire_swashregular';
+    color: #fff;
+    font-size: 22px;
+    background: #58C56F;
+    border-radius: 5px;
+}
+.precio:hover{
+    background: rgb(79, 179, 101);
+    color: #CCCCCC;
+}
+div main div.row div figure figcaption a{
+    margin-top: 7px;
+    text-align: center;
+    display: block;
+    font-size: 18px;
+    font-family: Verdana, sans-serif;
+    background: rgb(240, 239, 239);
+    color: rgb(80, 78, 78);
+}
+div main div.row div figure figcaption a:hover{
+    color: rgb(37, 131, 175);
+}
+
+/*... FOOTER ...*/
+.pie-pagina{
+    clear: both;
+    background: rgba(34,34,34, 0.8);
+    color: #fff;
+    margin-top: 20px;
+    padding: 5px 0;
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+.pie-pagina .container div small{
+    display: table;
+    margin: 0 auto;
+    text-align: center;
+    font-size: 11px;
+}
+.pie-pagina .container div small a{
+	color: #58C56F;
+	text-decoration: none;
+}
+.pie-pagina .container div small a:hover{
+	color: #C9B891;
+	text-decoration: underline;
+}
+
+
+
