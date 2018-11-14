@@ -16,10 +16,9 @@
 				<span class="sr-only">100% Complete</span>
 			</div>
 		</div>
-		<table class="table table-striped">
+		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
-					<th><?php echo $this->Paginator->sort('id'); ?></th>
 					<th><?php echo $this->Paginator->sort('categoria'); ?></th>
 					<th class="actions"><?php echo __('Actions'); ?></th>
 				</tr>
@@ -27,7 +26,6 @@
 			<tbody>
 				<?php foreach ($categorias as $categoria): ?>
 				<tr>
-					<td><?php echo h($categoria['Categoria']['id']); ?>&nbsp;</td>
 					<td><?php echo h($categoria['Categoria']['categoria']); ?>&nbsp;</td>
 					<td class="actions">
 						<?php echo $this->Html->link(__(''), array('action' => 'view', $categoria['Categoria']['id']), array('class'=>'btn btn-sm btn-default fa fa-eye')); ?>
