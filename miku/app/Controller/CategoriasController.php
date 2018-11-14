@@ -1,37 +1,32 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Categorias Controller
- *
- * @property Categoria $Categoria
- * @property PaginatorComponent $Paginator
- */
+
 class CategoriasController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
+	public $components = array('Session', 'RequestHandler');
+	public $helpers = array('Html', 'Form', 'Time', 'Js');
+	
+	//Configuración de la paginación - Parte 01
+	public $paginate = array(
+        'Categoria' => array(
+        	'limit' => 3,
+        	'order' => array('Categoria.id' => 'asc')
+    	),
+        'Platillo' => array(
+        	'limit' => 3,
+        	'recursive' => 0,
+        	'order' => array('Platillo.id' => 'asc')
+        )
+    );
 
-/**
- * index method
- *
- * @return void
- */
 	public function index() {
 		$this->Categoria->recursive = 0;
-		$this->set('categorias', $this->Paginator->paginate());
+		//Configuración de la paginación - Parte 02
+		$this->paginate['Categoria']['limit'] = 3;
+		$this->paginate['Categoria']['order'] = array('Categoria.id' => 'asc');
+		$this->set('categorias', $this->paginate());
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function view($id = null) {
 		if (!$this->Categoria->exists($id)) {
 			throw new NotFoundException(__('Invalid categoria'));
@@ -40,11 +35,6 @@ class CategoriasController extends AppController {
 		$this->set('categoria', $this->Categoria->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->Categoria->create();
@@ -57,13 +47,6 @@ class CategoriasController extends AppController {
 		}
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function edit($id = null) {
 		if (!$this->Categoria->exists($id)) {
 			throw new NotFoundException(__('Invalid categoria'));
@@ -81,13 +64,6 @@ class CategoriasController extends AppController {
 		}
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function delete($id = null) {
 		$this->Categoria->id = $id;
 		if (!$this->Categoria->exists()) {

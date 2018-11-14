@@ -30,7 +30,7 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	<?php
 		
 		echo $this->Html->meta('icon');
-		echo $this->Html->css(array('style', 'bootstrap.min'));
+		echo $this->Html->css(array('style', 'bootstrap.min', 'font-awesome'));
 		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min'));
 
 		echo $this->fetch('meta');
@@ -49,4 +49,5 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 
 	<?php echo $this->element('sql_dump'); ?>
 </body>
+	
 </html>

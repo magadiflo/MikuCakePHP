@@ -1,46 +1,57 @@
-<div class="categorias index">
-	<h2><?php echo __('Categorias'); ?></h2>
-	<table cellpadding="0" cellspacing="0">
-	<thead>
-	<tr>
-			<th><?php echo $this->Paginator->sort('id'); ?></th>
-			<th><?php echo $this->Paginator->sort('categoria'); ?></th>
-			<th class="actions"><?php echo __('Actions'); ?></th>
-	</tr>
-	</thead>
-	<tbody>
-	<?php foreach ($categorias as $categoria): ?>
-	<tr>
-		<td><?php echo h($categoria['Categoria']['id']); ?>&nbsp;</td>
-		<td><?php echo h($categoria['Categoria']['categoria']); ?>&nbsp;</td>
-		<td class="actions">
-			<?php echo $this->Html->link(__('View'), array('action' => 'view', $categoria['Categoria']['id'])); ?>
-			<?php echo $this->Html->link(__('Edit'), array('action' => 'edit', $categoria['Categoria']['id'])); ?>
-			<?php echo $this->Form->postLink(__('Delete'), array('action' => 'delete', $categoria['Categoria']['id']), array(), __('Are you sure you want to delete # %s?', $categoria['Categoria']['id'])); ?>
-		</td>
-	</tr>
-<?php endforeach; ?>
-	</tbody>
-	</table>
-	<p>
-	<?php
-	echo $this->Paginator->counter(array(
-	'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-	));
-	?>	</p>
-	<div class="paging">
-	<?php
-		echo $this->Paginator->prev('< ' . __('previous'), array(), null, array('class' => 'prev disabled'));
-		echo $this->Paginator->numbers(array('separator' => ''));
-		echo $this->Paginator->next(__('next') . ' >', array(), null, array('class' => 'next disabled'));
-	?>
+<?php
+   $this->Paginator->options(array(
+      'update' => '#contenedor-categorias',
+      'before' => $this->Js->get("#procesando")->effect('fadeIn', array('buffer' => false)),
+      'complete' => $this->Js->get("#procesando")->effect('fadeOut', array('buffer' => false))
+   ));
+?>
+<div id="contenedor-categorias">
+	<div class="page-header">
+		<h2><?php echo __('Categorias'); ?></h2>
 	</div>
-</div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('New Categoria'), array('action' => 'add')); ?></li>
-		<li><?php echo $this->Html->link(__('List Platillos'), array('controller' => 'platillos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Platillo'), array('controller' => 'platillos', 'action' => 'add')); ?> </li>
+
+	<div class="col-md-12">
+		<div class="progress oculto" id="procesando">
+			<div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100" style="width: 100%">
+				<span class="sr-only">100% Complete</span>
+			</div>
+		</div>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th><?php echo $this->Paginator->sort('id'); ?></th>
+					<th><?php echo $this->Paginator->sort('categoria'); ?></th>
+					<th class="actions"><?php echo __('Actions'); ?></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($categorias as $categoria): ?>
+				<tr>
+					<td><?php echo h($categoria['Categoria']['id']); ?>&nbsp;</td>
+					<td><?php echo h($categoria['Categoria']['categoria']); ?>&nbsp;</td>
+					<td class="actions">
+						<?php echo $this->Html->link(__(''), array('action' => 'view', $categoria['Categoria']['id']), array('class'=>'btn btn-sm btn-default fa fa-eye')); ?>
+						<?php echo $this->Html->link(__(''), array('action' => 'edit', $categoria['Categoria']['id']), array('class'=>'btn btn-sm btn-primary fa fa-edit')); ?>
+						<?php echo $this->Form->postLink(__(''), array('action' => 'delete', $categoria['Categoria']['id']), array('class'=>'btn btn-sm btn-danger fa fa-trash'), __('Are you sure you want to delete # %s?', $categoria['Categoria']['id'])); ?>
+					</td>
+				</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
+	</div>
+
+	<p>
+		<?php
+			echo $this->Paginator->counter(array(
+				'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+			));
+		?>	
+	</p>
+
+	<ul class="pagination">
+		<li> <?php echo $this->Paginator->prev('< ' . __('previous'), array('tag' => false), null, array('class' => 'prev disabled')); ?> </li>
+		<?php echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentTag' => 'a', 'currentClass' => 'active')); ?>
+		<li> <?php echo $this->Paginator->next(__('next') . ' >', array('tag' => false), null, array('class' => 'next disabled')); ?> </li>
 	</ul>
+	<?php echo $this->Js->writeBuffer(); ?>
 </div>
