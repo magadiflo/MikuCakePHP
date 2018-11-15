@@ -31,7 +31,7 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 		
 		echo $this->Html->meta('icon');
 		echo $this->Html->css(array('style', 'bootstrap.min', 'font-awesome'));
-		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min'));
+		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min', 'script'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -41,9 +41,11 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 <body>
 	<?php echo $this->element('menu'); ?>	
 
-
-	<div id="container" role="main">
+	<div id="notificacion">
 		<?php echo $this->Session->flash(); ?>
+	</div>
+	
+	<div id="container" role="main">
 		<?php echo $this->fetch('content'); ?>
 	</div>
 

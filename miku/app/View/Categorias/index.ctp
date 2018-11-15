@@ -28,9 +28,16 @@
 				<tr>
 					<td><?php echo h($categoria['Categoria']['categoria']); ?>&nbsp;</td>
 					<td class="actions">
-						<?php echo $this->Html->link(__(''), array('action' => 'view', $categoria['Categoria']['id']), array('class'=>'btn btn-sm btn-default fa fa-eye')); ?>
-						<?php echo $this->Html->link(__(''), array('action' => 'edit', $categoria['Categoria']['id']), array('class'=>'btn btn-sm btn-primary fa fa-edit')); ?>
-						<?php echo $this->Form->postLink(__(''), array('action' => 'delete', $categoria['Categoria']['id']), array('class'=>'btn btn-sm btn-danger fa fa-trash'), __('Are you sure you want to delete # %s?', $categoria['Categoria']['id'])); ?>
+						<?php echo $this->Html->link(__(''), 
+							array('action' => 'view', $categoria['Categoria']['id']), 
+							array('class'=>'btn btn-sm btn-default fa fa-eye')); ?>
+						<?php echo $this->Html->link(__(''), 
+							array('action' => 'edit', $categoria['Categoria']['id']), 
+							array('class'=>'btn btn-sm btn-primary fa fa-edit')); ?>
+						<?php echo $this->Form->postLink(__(''), 
+							array('action' => 'delete', $categoria['Categoria']['id']), 
+							array('class'=>'btn btn-sm btn-danger fa fa-trash'),
+							__('¿Seguro que desea eliminar la categoría [%s]?', $categoria['Categoria']['categoria'])); ?>
 					</td>
 				</tr>
 				<?php endforeach; ?>

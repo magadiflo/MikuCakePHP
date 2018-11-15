@@ -56,3 +56,15 @@ body {
  .img-pedidos{
    width: 60px;
  }
+
+/*Estilos para los mensajes de notificación*/
+#notificacion {
+  width: 100%;
+	position: absolute;
+	right: 0;
+	left: 0;
+	margin-top: -25px;
+  padding-top: 5px;
+  font-size: 18px;
+	display:none
+}

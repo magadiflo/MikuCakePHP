@@ -27,10 +27,11 @@ class CategoriasController extends AppController {
 		$this->paginate['Categoria']['order'] = array('Categoria.id' => 'desc');
 		$this->set('categorias', $this->paginate());
 	}
+
 	//Categoría >>>> Platillos
 	public function view($id = null) {
 		if (!$this->Categoria->exists($id)) {
-			throw new NotFoundException(__('¡Id de categoría inválido!'));
+			throw new NotFoundException(__('¡id de categoría inválido!'));
 		}
 		//Condición de búsqueda de la categoría según el id ingresado
 		$options = array('conditions' => array('Categoria.' . $this->Categoria->primaryKey => $id));
@@ -54,10 +55,13 @@ class CategoriasController extends AppController {
 		if ($this->request->is('post')) {
 			$this->Categoria->create();
 			if ($this->Categoria->save($this->request->data)) {
-				$this->Session->setFlash(__('The categoria has been saved.'));
+				$this->Session->setFlash('['.$this->request->data['Categoria']['categoria'].'] ¡Bien! Se creó una nueva categoría.', 
+										'default', array('class'=>'alert alert-success'));
+				
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The categoria could not be saved. Please, try again.'));
+				$this->Session->setFlash('¡Algo anda mal!, No se pudo crear la categoría.', 'default',
+										array('class'=>'alert alert-danger'));
 			}
 		}
 	}
@@ -71,12 +75,13 @@ class CategoriasController extends AppController {
 
 				$cat = $this->Categoria->findById($id);
 				$nombreCat = $cat['Categoria']['categoria'];
-				$this->Session->setFlash("[".$nombreCat."] Cateogía actualizada¡¡", 'default', 
+				$this->Session->setFlash("[".$nombreCat."] Categoría actualizada.", 'default', 
 										array('class' => 'alert alert-success'));
 										
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The categoria could not be saved. Please, try again.'));
+				$this->Session->setFlash('No se pudo actualizar la categoría', 'default',
+										array('class' => 'alert alert-danger'));
 			}
 		} else {
 			$options = array('conditions' => array('Categoria.' . $this->Categoria->primaryKey => $id));
@@ -87,13 +92,17 @@ class CategoriasController extends AppController {
 	public function delete($id = null) {
 		$this->Categoria->id = $id;
 		if (!$this->Categoria->exists()) {
-			throw new NotFoundException(__('Invalid categoria'));
+			throw new NotFoundException(__('La categoría que intenta eliminar no existe'));
 		}
+
+		$cat = $this->Categoria->findById($id);
+		$nombreCat = $cat['Categoria']['categoria'];
+
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Categoria->delete()) {
-			$this->Session->setFlash(__('The categoria has been deleted.'));
+			$this->Session->setFlash("[".$nombreCat."] Categoría eliminada.", 'default', array('class'=>'alert alert-success'));
 		} else {
-			$this->Session->setFlash(__('The categoria could not be deleted. Please, try again.'));
+			$this->Session->setFlash('No se pudo eliminar la categoría ¡Pruebe otra vez!', 'default', array('class'=>'alert alert-danger'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}
