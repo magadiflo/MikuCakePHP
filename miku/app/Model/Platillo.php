@@ -1,26 +1,28 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * Platillo Model
- *
- * @property Categoria $Categoria
- * @property ItemPrevio $ItemPrevio
- * @property OrdenItem $OrdenItem
- */
+
 class Platillo extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
 	public $displayField = 'nombre';
+	
+	//Del plugin miku/app/Plugin/Upload
+	public $actsAs = array(
+		'Upload.Upload' => array(
+			'foto' => array(
+				'fields' => array(
+					'dir' => 'foto_dir'
+				),
+				'thumbnailMethod' => 'php', //Por que se usará la librería GD de php para la muestra de la vista previa
+				'thumbnailSizes' => array(
+					'vga' => '640x480',
+					'thumb' => '150x150'
+				),
+				'deleteOnUpdate' => true,
+				'deleteFolderOnDelete' => true
+			)
+		)
+	);
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'nombre' => array(
 			'notEmpty' => array(
@@ -61,32 +63,40 @@ class Platillo extends AppModel {
 			),
 		),
 		'foto' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
+        	'uploadError' => array(
+				'rule' => 'uploadError',
+				'message' => 'Algo anda mal, verifique que haya seleccionado una imagen para el platillo',
+				'on' => 'create'
+			),
+	    	'isUnderPhpSizeLimit' => array(
+	    		'rule' => 'isUnderPhpSizeLimit',
+	        	'message' => 'Archivo excede el límite de tamaño de archivo de subida'
+	        ),
+		    'isValidMimeType' => array(
+	    		'rule' => array('isValidMimeType', array('image/jpeg', 'image/png'), false),
+        		'message' => 'La imagen no es jpg ni png',
+	    	),
+		    'isBelowMaxSize' => array(
+	    		'rule' => array('isBelowMaxSize', 300000),
+        		'message' => 'El tamaño de imagen es demasiado grande'
+	    	),
+		    'isValidExtension' => array(
+	    		'rule' => array('isValidExtension', array('jpg', 'png'), false),
+        		'message' => 'La imagen no tiene la extension jpg o png'
+	    	),
+		    'checkUniqueName' => array(
+                'rule' => array('checkUniqueName'),
+                'message' => 'La imagen ya se encuentra registrada',
+                'on' => 'update'
 			),
 			'fileSize' => array(
-				'rule' => array('fileSize'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
+				'rule' => array('fileSize', '<', '1MB'),
+				'message' => 'el tamaño de la foto debe ser menor a 1MB',
+				'allowEmpty' => FALSE,
+				'required' => TRUE,
 				//'last' => false, // Stop validation after this rule
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
-		),
-		'foto_dir' => array(
-			'notEmpty' => array(
-				'rule' => array('notEmpty'),
-				//'message' => 'Your custom message here',
-				//'allowEmpty' => false,
-				//'required' => false,
-				//'last' => false, // Stop validation after this rule
-				//'on' => 'create', // Limit validation to 'create' or 'update' operations
-			),
+			),	
 		),
 		'estado' => array(
 			'notEmpty' => array(
@@ -106,14 +116,18 @@ class Platillo extends AppModel {
 				//'on' => 'create', // Limit validation to 'create' or 'update' operations
 			),
 		),
+		'categoria_id' => array(
+			'notEmpty' => array(
+				'rule' => array('notEmpty')
+			),
+		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
+	
+
 
 /**
  * belongsTo associations
- *
- * @var array
  */
 	public $belongsTo = array(
 		'Categoria' => array(
@@ -127,8 +141,6 @@ class Platillo extends AppModel {
 
 /**
  * hasMany associations
- *
- * @var array
  */
 	public $hasMany = array(
 		'ItemPrevio' => array(

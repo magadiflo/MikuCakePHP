@@ -37,6 +37,11 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
+	<script type="text/javascript">
+		//$("#foto").fileinput();
+			
+		var basePath = "<?php echo Router::url('/'); ?>"
+	</script>
 </head>
 <body>
 	<?php echo $this->element('menu'); ?>	

@@ -1,28 +1,21 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Platillos Controller
- *
- * @property Platillo $Platillo
- * @property PaginatorComponent $Paginator
- */
+
 class PlatillosController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
+	public $components = array('Session', 'RequestHandler');
+	public $paginate = array(
+        'limit' => 5,
+        'order' => array(
+            'Platillo.id' => 'asc'
+        )
+    );
 
-/**
- * index method
- *
- * @return void
- */
 	public function index() {
 		$this->Platillo->recursive = 0;
-		$this->set('platillos', $this->Paginator->paginate());
+		$this->paginate['Platillo']['limit'] = 5;
+		$this->paginate['Platillo']['order'] = array('Platillo.id' => 'asc');
+		$this->set('platillos', $this->paginate());
 	}
 
 /**
@@ -52,7 +45,8 @@ class PlatillosController extends AppController {
 				$this->Session->setFlash(__('The platillo has been saved.'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The platillo could not be saved. Please, try again.'));
+				$this->Session->setFlash(__('The platillo could not be saved. Please, try again.'), 
+										'default', array('class'=>'alert alert-danger'));
 			}
 		}
 		$categorias = $this->Platillo->Categoria->find('list');
