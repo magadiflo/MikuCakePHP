@@ -14,7 +14,7 @@
 																'data-show-upload' => 'false', 
 																'data-show-caption' => 'true'));
 						echo $this->Form->input('foto_dir', array('type'=>'hidden'));
-						echo $this->Form->input('estado', array('class'=>'form-control', 'label'=>'Estado'));
+						echo $this->Form->input('estado', array('class'=>'form-control', 'value'=>1, 'type'=>'hidden'));
 					?>
 				</fieldset>
 			<p><?php echo $this->Form->end(array('label'=>'Crear platillo', 'class'=>'btn btn-success')); ?></p>

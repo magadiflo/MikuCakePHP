@@ -65,7 +65,7 @@ class Platillo extends AppModel {
 		'foto' => array(
         	'uploadError' => array(
 				'rule' => 'uploadError',
-				'message' => 'Algo anda mal, verifique que haya seleccionado una imagen para el platillo',
+				'message' => 'Algo anda mal, intente nuevamente',
 				'on' => 'create'
 			),
 	    	'isUnderPhpSizeLimit' => array(
@@ -76,14 +76,15 @@ class Platillo extends AppModel {
 	    		'rule' => array('isValidMimeType', array('image/jpeg', 'image/png'), false),
         		'message' => 'La imagen no es jpg ni png',
 	    	),
-		    'isBelowMaxSize' => array(
+			'isBelowMaxSize' => array(
 	    		'rule' => array('isBelowMaxSize', 300000),
         		'message' => 'El tamaño de imagen es demasiado grande'
 	    	),
 		    'isValidExtension' => array(
 	    		'rule' => array('isValidExtension', array('jpg', 'png'), false),
         		'message' => 'La imagen no tiene la extension jpg o png'
-	    	),
+			),
+			//Esta validación tiene su function checkUniqueName($data) abajo de este código.
 		    'checkUniqueName' => array(
                 'rule' => array('checkUniqueName'),
                 'message' => 'La imagen ya se encuentra registrada',
@@ -123,8 +124,18 @@ class Platillo extends AppModel {
 		),
 	);
 
-	
-
+	/*La función se ejecutará cada vez que el usuario
+	intente actualizar  la imagen con el mismo nombre
+	de la imagen ya registrada en la BD*/
+	function checkUniqueName($data){
+		$isUnique = $this->find('first', array('fields'=>array('Platillo.foto'), 
+												'conditions' => array('Platillo.foto'=>$data['foto'])));
+		if(!empty($isUnique)){
+			return false;
+		}else{
+			return true;
+		}
+	}
 
 /**
  * belongsTo associations

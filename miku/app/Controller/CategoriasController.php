@@ -38,11 +38,11 @@ class CategoriasController extends AppController {
 		//Encuentra la categoría según la opción indicada
 		$categ = $this->Categoria->find('first', $options);
 		
-		//Configuración de la paginación
+		//Configuración de la paginación. Le enviamos solo algunos campos de la tabla Platillo
 		$this->paginate['Platillo']['conditions'] = array('Platillo.categoria_id' => $id);
 		$this->paginate['Platillo']['fields'] = array('Platillo.id', 'Platillo.nombre', 
 													  'Platillo.precio', 'Platillo.foto',
-													  'Platillo.foto_dir', 'Platillo.categoria_id');
+													  'Platillo.foto_dir', 'Platillo.categoria_id', 'Platillo.estado');
 		//Obteniendo nombre de cateogría: Modelo Categoria, campo BD: categoria
 		$platilloCat = $categ['Categoria']['categoria'];
 		
@@ -56,8 +56,7 @@ class CategoriasController extends AppController {
 			$this->Categoria->create();
 			if ($this->Categoria->save($this->request->data)) {
 				$this->Session->setFlash('['.$this->request->data['Categoria']['categoria'].'] ¡Bien! Se creó una nueva categoría.', 
-										'default', array('class'=>'alert alert-success'));
-				
+										'default', array('class'=>'alert alert-success'));				
 				return $this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash('¡Algo anda mal!, No se pudo crear la categoría.', 'default',

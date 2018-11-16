@@ -1,75 +1,62 @@
-<div class="platillos view">
-<h2><?php echo __('Platillo'); ?></h2>
-	<dl>
-		<dt><?php echo __('Id'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['id']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Categoria'); ?></dt>
-		<dd>
-			<?php echo $this->Html->link($platillo['Categoria']['categoria'], array('controller' => 'categorias', 'action' => 'view', $platillo['Categoria']['id'])); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Nombre'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['nombre']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Descripcion'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['descripcion']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Precio'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['precio']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Foto'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['foto']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Foto Dir'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['foto_dir']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Estado'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['estado']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Created'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['created']); ?>
-			&nbsp;
-		</dd>
-		<dt><?php echo __('Modified'); ?></dt>
-		<dd>
-			<?php echo h($platillo['Platillo']['modified']); ?>
-			&nbsp;
-		</dd>
-	</dl>
+<h1><?php echo $platillo['Platillo']['nombre']; ?></h1>
+<div class="row">
+	<div class="col col-sm-7">
+			<?php echo $this->Html->image('../files/platillo/foto/' . $platillo['Platillo']['foto_dir'] . 
+											'/' . 'vga_' .$platillo['Platillo']['foto'], 
+										 array('class' => 'img-thumbnail img-responsive')); ?>
+	</div>
+	<div class="col col-sm-5">
+		<strong><?php echo $platillo['Platillo']['nombre']; ?></strong>
+		<br><br>
+		S/ <span id="productprice"><?php echo $platillo['Platillo']['precio']; ?></span>
+		<br><br>
+		<?php echo $this->Form->button('Agregar a pedido', array('class'=>'btn btn-primary btn-lg')); ?>
+		<br><br>
+		<strong>Descripción: </strong>
+		<?php echo $platillo['Platillo']['descripcion']; ?>
+		<br><br>
+		<strong>Estado: </strong>
+		<?php echo ($platillo['Platillo']['estado'] == 1) ? 'Habilitado' : 'Deshabilitado'; ?>
+		<br><br>
+		<strong>Creado: </strong>
+		<?php echo $platillo['Platillo']['created']; ?>
+		<br><br>
+		<strong>Modificado: </strong>
+		<?php echo $platillo['Platillo']['modified']; ?>
+		<br><br>
+		<strong>Categoría: </strong>
+		<?php echo $this->Html->link($platillo['Categoria']['categoria'],
+								array('controller'=>'categorias', 'action'=>'view', 
+										$platillo['Categoria']['id']));?>
+		<br><br>
+		<div class="btn-group">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+				<?php echo __('Actions'); ?> <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><?php echo $this->Html->link(__('Edit Platillo'), array('action' => 'edit', $platillo['Platillo']['id'])); ?> </li>
+				<li><?php echo $this->Form->postLink(__('Delete Platillo'), array('action' => 'delete', $platillo['Platillo']['id']), array(), __('¿Seguro que desea eliminar el platillo [%s]?', $platillo['Platillo']['nombre'])); ?> </li>
+				<li><?php echo $this->Html->link(__('List Platillos'), array('action' => 'index')); ?> </li>
+				<li><?php echo $this->Html->link(__('New Platillo'), array('action' => 'add')); ?> </li>
+				<li class="divider"></li>
+				<li><?php echo $this->Html->link(__('List Categorias'), array('controller' => 'categorias', 'action' => 'index')); ?> </li>
+				<li><?php echo $this->Html->link(__('New Categoria'), array('controller' => 'categorias', 'action' => 'add')); ?> </li>
+				<li class="divider"></li>
+				<li><?php echo $this->Html->link(__('List Item Previos'), array('controller' => 'item_previos', 'action' => 'index')); ?> </li>
+				<li><?php echo $this->Html->link(__('New Item Previo'), array('controller' => 'item_previos', 'action' => 'add')); ?> </li>
+				<li class="divider"></li>
+				<li><?php echo $this->Html->link(__('List Orden Items'), array('controller' => 'orden_items', 'action' => 'index')); ?> </li>
+				<li><?php echo $this->Html->link(__('New Orden Item'), array('controller' => 'orden_items', 'action' => 'add')); ?> </li>
+			</ul>
+		</div>
+	</div>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
-		<li><?php echo $this->Html->link(__('Edit Platillo'), array('action' => 'edit', $platillo['Platillo']['id'])); ?> </li>
-		<li><?php echo $this->Form->postLink(__('Delete Platillo'), array('action' => 'delete', $platillo['Platillo']['id']), array(), __('Are you sure you want to delete # %s?', $platillo['Platillo']['id'])); ?> </li>
-		<li><?php echo $this->Html->link(__('List Platillos'), array('action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Platillo'), array('action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Categorias'), array('controller' => 'categorias', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Categoria'), array('controller' => 'categorias', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Item Previos'), array('controller' => 'item_previos', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Item Previo'), array('controller' => 'item_previos', 'action' => 'add')); ?> </li>
-		<li><?php echo $this->Html->link(__('List Orden Items'), array('controller' => 'orden_items', 'action' => 'index')); ?> </li>
-		<li><?php echo $this->Html->link(__('New Orden Item'), array('controller' => 'orden_items', 'action' => 'add')); ?> </li>
-	</ul>
-</div>
+
+
+
+
 <div class="related">
-	<h3><?php echo __('Related Item Previos'); ?></h3>
+	<h3><?php echo __('Relacionado con Item Previos'); ?></h3>
 	<?php if (!empty($platillo['ItemPrevio'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
@@ -109,8 +96,9 @@
 		</ul>
 	</div>
 </div>
+
 <div class="related">
-	<h3><?php echo __('Related Orden Items'); ?></h3>
+	<h3><?php echo __('Relacionado con Orden Items'); ?></h3>
 	<?php if (!empty($platillo['OrdenItem'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>

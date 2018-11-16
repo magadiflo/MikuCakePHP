@@ -20,9 +20,9 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 <html lang="es">
 <head>
 	<?php echo $this->Html->charset(); ?>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-	<meta name="description" content="Restaurante online miku">
+	<?php echo $this->Html->meta(array('name' => 'viewport', 'content' => 'width=device-width, minimum-scale=1, maximum-scale=1')); ?>
+	<?php echo $this->Html->meta(array('http-equiv' => 'X-UA-Compatible', 'content' => 'IE=edge,chrome=1')); ?>
+	<?php echo $this->Html->meta(array('name' => 'description', 'content' => 'Restaurante online miku')); ?>
 
 	<title>
 		<?php echo $cakeDescription ?>
@@ -30,16 +30,18 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	<?php
 		
 		echo $this->Html->meta('icon');
-		echo $this->Html->css(array('style', 'bootstrap.min', 'font-awesome'));
-		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min', 'script'));
+		echo $this->Html->css(array('style.css', 'bootstrap.min', 'font-awesome', 'fileinput.min.css'));
+		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min', 'script', 'fileinput.min.js'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
 		echo $this->fetch('script');
 	?>
 	<script type="text/javascript">
-		//$("#foto").fileinput();
-			
+		//#foto, id asignado en Platillos/add.ctp
+		//Con el método asociado llamamos al plugin fileinput.min
+		$("#foto").fileinput();
+		//Indicamos la ruta base/raiz del proyecto. Se usará en el addtocart.js
 		var basePath = "<?php echo Router::url('/'); ?>"
 	</script>
 </head>

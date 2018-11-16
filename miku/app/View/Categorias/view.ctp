@@ -19,7 +19,8 @@
    			<?php foreach($categoriaPlatillos as $platillo): ?>
 				<div class="col col-sm-3">
    					<figure class="platillo">
-   						<?php echo $this->Html->image('entrada/entrada-ceviche.jpg', array('width'=>'150')); ?>
+						<?php echo $this->Html->image('../files/platillo/foto/' . $platillo['Platillo']['foto_dir'] . '/' . 'thumb_' .$platillo['Platillo']['foto'], 
+							array('url' => array('controller' => 'platillos', 'action' => 'view', $platillo['Platillo']['id']))); ?>
 					</figure>
 					<br>
 					<?php echo $this->Html->link($platillo['Platillo']['nombre'], 
@@ -27,6 +28,8 @@
 												); ?>  
 					<br>
 					<?php echo $platillo['Platillo']['precio']; ?> &nbsp;
+					<br>
+					<?php echo ($platillo['Platillo']['estado'] == 1) ? 'Habilitado' : 'Deshabilitado';?>
 					<br>
 					<br>
 				</div>
