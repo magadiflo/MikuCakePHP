@@ -32,6 +32,9 @@
                         <li><?php echo $this->Html->link('Nuevo usuario', array('controller'=>'users', 'action' => 'add')); ?></li>
                     </ul>
                 </li>
+
+                <?php echo $this->Html->link('Item previos[Detalle]', array('controller' => 'item_previos', 'action' => 'view'), array('class' => 'btn btn-success navbar-btn') ); ?>
+
             </ul>
         </div><!--/.nav-collapse -->
     </div>

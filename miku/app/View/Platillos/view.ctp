@@ -1,3 +1,4 @@
+<?php echo $this->Html->script(array('addtocart.js') ,array('inline'=> false)); ?>
 <h1><?php echo $platillo['Platillo']['nombre']; ?></h1>
 <div class="row">
 	<div class="col col-sm-7">
@@ -10,7 +11,8 @@
 		<br><br>
 		S/ <span id="productprice"><?php echo $platillo['Platillo']['precio']; ?></span>
 		<br><br>
-		<?php echo $this->Form->button('Agregar a pedido', array('class'=>'btn btn-primary btn-lg')); ?>
+		<?php echo $this->Form->button('Agregar a pedido', 
+			array('class'=>'btn btn-primary btn-lg addtocart', 'id'=>$platillo['Platillo']['id'])); ?>
 		<br><br>
 		<strong>Descripción: </strong>
 		<?php echo $platillo['Platillo']['descripcion']; ?>
@@ -65,7 +67,7 @@
 		<th><?php echo __('Platillo Id'); ?></th>
 		<th><?php echo __('Cantidad'); ?></th>
 		<th><?php echo __('Subtotal'); ?></th>
-		<th><?php echo __('Comentario'); ?></th>
+		
 		<th><?php echo __('Created'); ?></th>
 		<th><?php echo __('Modified'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
@@ -77,7 +79,7 @@
 			<td><?php echo $itemPrevio['platillo_id']; ?></td>
 			<td><?php echo $itemPrevio['cantidad']; ?></td>
 			<td><?php echo $itemPrevio['subtotal']; ?></td>
-			<td><?php echo $itemPrevio['comentario']; ?></td>
+		
 			<td><?php echo $itemPrevio['created']; ?></td>
 			<td><?php echo $itemPrevio['modified']; ?></td>
 			<td class="actions">
@@ -107,7 +109,7 @@
 		<th><?php echo __('Platillo Id'); ?></th>
 		<th><?php echo __('Cantidad'); ?></th>
 		<th><?php echo __('Subtotal'); ?></th>
-		<th><?php echo __('Comentario'); ?></th>
+	
 		<th><?php echo __('Created'); ?></th>
 		<th><?php echo __('Modified'); ?></th>
 		<th class="actions"><?php echo __('Actions'); ?></th>
@@ -119,7 +121,7 @@
 			<td><?php echo $ordenItem['platillo_id']; ?></td>
 			<td><?php echo $ordenItem['cantidad']; ?></td>
 			<td><?php echo $ordenItem['subtotal']; ?></td>
-			<td><?php echo $ordenItem['comentario']; ?></td>
+	
 			<td><?php echo $ordenItem['created']; ?></td>
 			<td><?php echo $ordenItem['modified']; ?></td>
 			<td class="actions">

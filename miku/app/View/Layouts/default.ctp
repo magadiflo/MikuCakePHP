@@ -56,6 +56,10 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 		<?php echo $this->fetch('content'); ?>
 	</div>
 
+	<br>
+	<div id="msg"></div>
+	<br>
+
 	<?php echo $this->element('sql_dump'); ?>
 </body>
 	
