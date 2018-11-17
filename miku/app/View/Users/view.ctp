@@ -1,4 +1,4 @@
-<div class="users view">
+<div class="well">
 <h2><?php echo __('User'); ?></h2>
 	<dl>
 		<dt><?php echo __('Id'); ?></dt>
@@ -53,23 +53,30 @@
 		</dd>
 	</dl>
 </div>
-<div class="actions">
-	<h3><?php echo __('Actions'); ?></h3>
-	<ul>
+
+<div class="btn-group">
+	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+		<?php echo __('Actions'); ?> <span class="caret"></span>
+	</button>
+	<ul class="dropdown-menu" role="menu">
 		<li><?php echo $this->Html->link(__('Edit User'), array('action' => 'edit', $user['User']['id'])); ?> </li>
 		<li><?php echo $this->Form->postLink(__('Delete User'), array('action' => 'delete', $user['User']['id']), array(), __('Are you sure you want to delete # %s?', $user['User']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Users'), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?> </li>
+		<li class="divider"></li>
 		<li><?php echo $this->Html->link(__('List Item Previos'), array('controller' => 'item_previos', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Item Previo'), array('controller' => 'item_previos', 'action' => 'add')); ?> </li>
+		<li class="divider"></li>
 		<li><?php echo $this->Html->link(__('List Mensajes'), array('controller' => 'mensajes', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Mensaje'), array('controller' => 'mensajes', 'action' => 'add')); ?> </li>
+		<li class="divider"></li>
 		<li><?php echo $this->Html->link(__('List Ordens'), array('controller' => 'ordens', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Orden'), array('controller' => 'ordens', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
+
 <div class="related">
-	<h3><?php echo __('Related Item Previos'); ?></h3>
+	<h3><?php echo __('Relacionado con Item Previos'); ?></h3>
 	<?php if (!empty($user['ItemPrevio'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
@@ -110,7 +117,7 @@
 	</div>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Mensajes'); ?></h3>
+	<h3><?php echo __('Mensajes del usuario'); ?></h3>
 	<?php if (!empty($user['Mensaje'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>
@@ -147,7 +154,7 @@
 	</div>
 </div>
 <div class="related">
-	<h3><?php echo __('Related Ordens'); ?></h3>
+	<h3><?php echo __('Órdenes del usuario'); ?></h3>
 	<?php if (!empty($user['Orden'])): ?>
 	<table cellpadding = "0" cellspacing = "0">
 	<tr>

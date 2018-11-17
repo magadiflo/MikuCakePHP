@@ -1,26 +1,10 @@
 <?php
 App::uses('AppModel', 'Model');
-/**
- * User Model
- *
- * @property ItemPrevio $ItemPrevio
- * @property Mensaje $Mensaje
- * @property Orden $Orden
- */
+
 class User extends AppModel {
 
-/**
- * Display field
- *
- * @var string
- */
 	public $displayField = 'name';
 
-/**
- * Validation rules
- *
- * @var array
- */
 	public $validate = array(
 		'name' => array(
 			'notEmpty' => array(
@@ -102,12 +86,8 @@ class User extends AppModel {
 		),
 	);
 
-	//The Associations below have been created with all possible keys, those that are not needed can be removed
-
 /**
  * hasMany associations
- *
- * @var array
  */
 	public $hasMany = array(
 		'ItemPrevio' => array(
