@@ -4,7 +4,11 @@ App::uses('AppController', 'Controller');
 class ItemPreviosController extends AppController {
 
 	public $components = array('Session', 'RequestHandler');
-    public $helpers = array('Html', 'Form', 'Time');
+	public $helpers = array('Html', 'Form', 'Time');
+	
+	public function index(){
+
+	}
 
 	public function view() {
 		$res_itemPrevio = $this->ItemPrevio->find('all');
@@ -73,5 +77,67 @@ class ItemPreviosController extends AppController {
 		
 		echo json_encode(compact('mostrar_item'));
 		$this->autoRender = false;
+	}
+
+	public function remove(){
+		if($this->request->is('ajax')){
+			$id = $this->request->data['id'];
+			$this->ItemPrevio->delete($id);
+		}
+		//Vuelve a recalcular el total
+		$total_remove = $this->ItemPrevio->find('all', array('fields'=>array('SUM(ItemPrevio.subtotal) as subtotal')));
+		$mostrar_total_remove = $total_remove[0][0]['subtotal'];
+		
+		$items = $this->ItemPrevio->find('all');
+		if(count($mostrar_total_remove) == 0){
+			$mostrar_total_remove = "0.00";
+		}
+
+		if(count($items) == 0){
+			$this->Session->setFlash('No tiene platillos seleccionados',
+			'default', array('class'=>'alert alert-success'));
+		}
+
+		echo json_encode(compact('items', 'mostrar_total_remove'));
+		$this->autoRender = false;
+	}
+
+	public function quitar(){
+		if($this->ItemPrevio->deleteAll(1, false)){
+			$this->Session->setFlash('Todos sus platillos seleccionados fueron eliminados.',
+		'default', array('class'=>'alert alert-success'));
+		}else{
+			$this->Session->setFlash('No se pudo quitar los platillos seleccionados.',
+		'default', array('class'=>'alert alert-danger'));
+		}
+		return $this->redirect(array('controller'=>'platillos', 'action'=>'index'));
+	}
+
+	public function recalcular(){
+		//debug($_POST);
+		$arreglo = $this->request->data['ItemPrevio'];
+		//debug($arreglo); //Observamos que contiene el arreglo
+		if($this->request->is('post')){
+			foreach ($arreglo as $key => $value) {
+				$entero = preg_replace("/[^0-9]/", "", $value);
+				if($entero == 0 || $entero == ""){
+					$entero = 1;
+				}
+				$precio_update = $this->ItemPrevio->find('all', 
+				array('fields'=>array('ItemPrevio.id', 'Platillo.precio'), 'conditions'=>array('ItemPrevio.id'=>$key)));
+				$precio_update_mostrar = $precio_update[0]['Platillo']['precio'];
+				$subtotal_update = $entero * $precio_update_mostrar;
+				$pedido_update = array('id'=>$key, 'cantidad'=>$entero, 'subtotal'=>$subtotal_update);
+				$this->ItemPrevio->saveAll($pedido_update);
+			}
+		}
+		
+		if($this->request->data['recalcular'] == 'recalcular'){
+			$this->Session->setFlash('Se recalcularon los datos de sus platillos seleccionados.', 'default', array('class'=>'alert alert-success'));
+			return $this->redirect(array('controller'=>'item_previos', 'action'=>'view'));
+
+		}elseif($this->request->data['procesar']=='procesar'){
+			return $this->redirect(array('controller'=>'ordens', 'action'=>'add'));
+		}
 	}
 }
