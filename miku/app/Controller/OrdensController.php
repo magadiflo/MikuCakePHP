@@ -1,108 +1,65 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Ordens Controller
- *
- * @property Orden $Orden
- * @property PaginatorComponent $Paginator
- */
+
 class OrdensController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
+	public $components = array('Session', 'RequestHandler');
+    public $helpers = array('Html', 'Form', 'Time', 'Js');
+    public $paginate = array(
+        'limit' => '5',
+        'order' => array(
+            'Orden.id' => 'DESC'
+        ),
+    );
 
-/**
- * index method
- *
- * @return void
- */
 	public function index() {
 		$this->Orden->recursive = 0;
-		$this->set('ordens', $this->Paginator->paginate());
+
+        $this->paginate['Orden']['limit'] = 5;
+        $this->paginate['Orden']['order'] = array('Orden.id' => 'DESC');
+        
+        $this->set('ordens', $this->paginate());
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function view($id = null) {
-		if (!$this->Orden->exists($id)) {
-			throw new NotFoundException(__('Invalid orden'));
-		}
-		$options = array('conditions' => array('Orden.' . $this->Orden->primaryKey => $id));
-		$this->set('orden', $this->Orden->find('first', $options));
+	public function add(){
+        //Recuperamos datos de un modelo con el que no se está relacionado
+        $this->loadModel('ItemPrevio', 'RequestHandler');
+        $id_user_actual = 1;//Luego será cambiado por el usuario que haga sesión
+        $estado = 1;
+        $orden_item = $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $id_user_actual), 'order'=>'ItemPrevio.id ASC'));
+        	
+        if(count($orden_item) > 0){
+            $total_items = $this->ItemPrevio->find('all', array('fields'=>array('SUM(ItemPrevio.subtotal) as subtotal'), 'conditions' => array('ItemPrevio.user_id' => $id_user_actual)));
+            $mostrar_total_orden = $total_items[0][0]['subtotal'];
+
+            $data = array('user_id' => $id_user_actual, 'total' => $mostrar_total_orden, 'estado' => $estado);
+            $this->Orden->create();
+            if($this->Orden->save($data)){
+                //Recupera el "id" de la orden que se ha guardado en ese momento. id actual.
+                $id_orden = $this->Orden->id;
+                for($i=0; $i<count($orden_item); $i++){
+                    $platillo_id = $orden_item[$i]['ItemPrevio']['platillo_id'];
+                    $cantidad = $orden_item[$i]['ItemPrevio']['cantidad'];
+                    $subtotal = $orden_item[$i]['ItemPrevio']['subtotal'];
+
+                    $orden_items = array('platillo_id'=>$platillo_id, 
+                                            'orden_id'=>$id_orden, 
+                                            'cantidad'=>$cantidad, 
+                                            'subtotal'=>$subtotal);
+                    $this->Orden->OrdenItem->saveAll($orden_items);
+                }
+                //Eliminando todo el contenido de la tabla ItemPrevio del usuario que hizo el pedido
+                $this->ItemPrevio->deleteAll(array('ItemPrevio.user_id' => $id_user_actual), false);
+
+                $this->Session->setFlash('La orden fue procesada con éxito¡¡', 'default', array('class'=>'alert alert-success'));
+                return $this->redirect(array('controller'=>'platillos', 'action'=>'index'));
+            }else{
+                $this->Session->setFlash('La orden no pudo ser procesada...', 'default', array('class'=>'alert alert-danger'));
+            }
+        }else{
+			$this->Session->setFlash('Ninguna orden ha sido procesada.', 'default', array('class'=>'alert alert-danger'));
+            return $this->redirect(array('controller'=>'platillos', 'action'=>'index'));
+        }
 	}
 
-/**
- * add method
- *
- * @return void
- */
-	public function add() {
-		if ($this->request->is('post')) {
-			$this->Orden->create();
-			if ($this->Orden->save($this->request->data)) {
-				$this->Session->setFlash(__('The orden has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The orden could not be saved. Please, try again.'));
-			}
-		}
-		$users = $this->Orden->User->find('list');
-		$this->set(compact('users'));
-	}
-
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function edit($id = null) {
-		if (!$this->Orden->exists($id)) {
-			throw new NotFoundException(__('Invalid orden'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->Orden->save($this->request->data)) {
-				$this->Session->setFlash(__('The orden has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The orden could not be saved. Please, try again.'));
-			}
-		} else {
-			$options = array('conditions' => array('Orden.' . $this->Orden->primaryKey => $id));
-			$this->request->data = $this->Orden->find('first', $options);
-		}
-		$users = $this->Orden->User->find('list');
-		$this->set(compact('users'));
-	}
-
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
-	public function delete($id = null) {
-		$this->Orden->id = $id;
-		if (!$this->Orden->exists()) {
-			throw new NotFoundException(__('Invalid orden'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->Orden->delete()) {
-			$this->Session->setFlash(__('The orden has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The orden could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
-	}
 }

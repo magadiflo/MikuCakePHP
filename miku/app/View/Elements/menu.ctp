@@ -33,6 +33,10 @@
                     </ul>
                 </li>
 
+                <li>
+                    <?php echo $this->Html->link('Órdenes', array('controller' => 'ordens', 'action'=>'index')); ?>
+                </li>
+
                 <?php echo $this->Html->link('Mis platillos', array('controller' => 'item_previos', 'action' => 'view'), array('class' => 'btn btn-success navbar-btn') ); ?>
 
             </ul>
