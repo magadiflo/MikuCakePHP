@@ -33,7 +33,7 @@
                     </ul>
                 </li>
 
-                <?php echo $this->Html->link('Item previos[Detalle]', array('controller' => 'item_previos', 'action' => 'view'), array('class' => 'btn btn-success navbar-btn') ); ?>
+                <?php echo $this->Html->link('Mis platillos', array('controller' => 'item_previos', 'action' => 'view'), array('class' => 'btn btn-success navbar-btn') ); ?>
 
             </ul>
         </div><!--/.nav-collapse -->

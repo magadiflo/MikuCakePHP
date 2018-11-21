@@ -6,11 +6,6 @@ class ItemPreviosController extends AppController {
 	public $components = array('Session', 'RequestHandler');
     public $helpers = array('Html', 'Form', 'Time');
 
-	public function index() {
-		// $this->ItemPrevio->recursive = 0;
-		// $this->set('itemPrevios', $this->Paginator->paginate());
-	}
-
 	public function view() {
 		$res_itemPrevio = $this->ItemPrevio->find('all');
 		if(count($res_itemPrevio) == 0){
@@ -56,37 +51,27 @@ class ItemPreviosController extends AppController {
 		$this->autoRender = false;
 	}
 
-	public function edit($id = null) {
-		if (!$this->ItemPrevio->exists($id)) {
-			throw new NotFoundException(__('Invalid item previo'));
-		}
-		if ($this->request->is(array('post', 'put'))) {
-			if ($this->ItemPrevio->save($this->request->data)) {
-				$this->Session->setFlash(__('The item previo has been saved.'));
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The item previo could not be saved. Please, try again.'));
+	public function itemupdate(){
+		if($this->request->is('ajax')){
+			$id = $this->request->data['id'];
+			$cantidad = isset($this->request->data['cantidad']) ? $this->request->data['cantidad'] : null;
+			if($cantidad == 0){
+				$cantidad = 1;
 			}
-		} else {
-			$options = array('conditions' => array('ItemPrevio.' . $this->ItemPrevio->primaryKey => $id));
-			$this->request->data = $this->ItemPrevio->find('first', $options);
+	
+			$item = $this->ItemPrevio->find('all', array('fields' => array('ItemPrevio.id', 'Platillo.precio'), 'conditions' => array('ItemPrevio.id' => $id)));
+			$precio_item = $item[0]['Platillo']['precio'];
+			$subtotal_item = $cantidad * $precio_item;
+			$item_update = array('id' => $id, 'cantidad' => $cantidad, 'subtotal' => $subtotal_item);
+			$this->ItemPrevio->saveAll($item_update);
 		}
-		$users = $this->ItemPrevio->User->find('list');
-		$platillos = $this->ItemPrevio->Platillo->find('list');
-		$this->set(compact('users', 'platillos'));
-	}
-
-	public function delete($id = null) {
-		$this->ItemPrevio->id = $id;
-		if (!$this->ItemPrevio->exists()) {
-			throw new NotFoundException(__('Invalid item previo'));
-		}
-		$this->request->allowMethod('post', 'delete');
-		if ($this->ItemPrevio->delete()) {
-			$this->Session->setFlash(__('The item previo has been deleted.'));
-		} else {
-			$this->Session->setFlash(__('The item previo could not be deleted. Please, try again.'));
-		}
-		return $this->redirect(array('action' => 'index'));
+	
+		$total = $this->ItemPrevio->find('all', array('fields' => array('SUM(ItemPrevio.subtotal) as subtotal')));
+		$mostrar_total = $total[0][0]['subtotal'];
+		$pedido_update = $this->ItemPrevio->find('all', array('fields' => array('ItemPrevio.id', 'ItemPrevio.subtotal'), 'conditions' => array('ItemPrevio.id' => $id)));
+		$mostrar_item = array('id' => $pedido_update[0]['ItemPrevio']['id'], 'subtotal' => $pedido_update[0]['ItemPrevio']['subtotal'], 'total' => $mostrar_total);
+		
+		echo json_encode(compact('mostrar_item'));
+		$this->autoRender = false;
 	}
 }

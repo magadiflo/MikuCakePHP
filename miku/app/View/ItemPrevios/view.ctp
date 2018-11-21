@@ -1,6 +1,5 @@
 <?php //echo "debug: " . debug($itemPrevios); ?>
-<!-- Se implementará luego la funcionalidad para que el usuario cambie elimine su platillo seleccionado -->
-<?php //echo $this->Html->script(array('cart.js', 'jquery.animate-colors.js'), array('inline'=> false)); ?>
+<?php echo $this->Html->script(array('cart.js', 'jquery.animate-colors.js'), array('inline'=> false)); ?>
 <hr>
 <div class="container">
 	<?php echo $this->Form->create(NULL, array('url'=>array('controller'=>'item_previos', 'action'=>'recalcular'))); ?>
@@ -40,7 +39,7 @@
 															'tabindex'=>$tabIndex++, 
 															'data-id'=>$item['ItemPrevio']['id'],
 															'value'=>$item['ItemPrevio']['cantidad'])); ?>
-				</div>
+            	</div>
 				<div class="col col-sm-1" style="background-color: none;" id="subtotal_<?php echo $item['ItemPrevio']['id']; ?>" >
 					<?php echo $item['ItemPrevio']['subtotal']; ?>
 				</div>
