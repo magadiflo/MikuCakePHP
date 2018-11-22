@@ -4,6 +4,32 @@ App::uses('AppController', 'Controller');
 class UsersController extends AppController {
 
 	public $components = array('Session','Paginator');
+	
+	public function beforeFilter(){
+		//Llamamos al beforeFilter() del AppController
+		parent::beforeFilter();
+		//Definirá las acciones a las que el usuario 
+		//esté o no autentificado puede acceder, en este caso al add
+		$this->Auth->allow('add');
+	}
+
+	public function login(){
+		if($this->request->is('post')){
+			if($this->Auth->login()){//Si está accediendo correctamente al método lógin
+				//este método redirectUrl(), será manejado desde el AppController
+				return $this->redirect($this->Auth->redirectUrl());
+			}
+			$this->Session->setFlash('Usuario y/o contraseña son incorrectas', 'default', 
+				array('class'=>'alert alert-danger'));
+		}
+	}
+
+	//Redireccionará según hayamos configurado en el AppController
+	public function logout(){
+		return $this->redirect($this->Auth->logout());
+	}
+
+
 
 	public function index() {
 		$this->User->recursive = 0;
@@ -21,6 +47,8 @@ class UsersController extends AppController {
 	public function add() {
 		if ($this->request->is('post')) {
 			$this->User->create();
+			//Por defecto los usuarios serán del rol = 'user'
+			$this->request->data['User']['role'] = 'user';
 			if ($this->User->save($this->request->data)) {
 				$this->Session->setFlash('Se creó un nuevo usuario.', 
 				'default', array('class' => 'alert alert-success'));

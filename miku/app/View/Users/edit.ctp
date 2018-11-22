@@ -11,14 +11,14 @@
 					echo $this->Form->input('email', array('class' => 'form-control', 'label' => 'E-mail'));
 					echo $this->Form->input('mobile', array('class' => 'form-control', 'label' => 'Teléfono/celular'));
 					echo $this->Form->input('username', array('class' => 'form-control', 'label' => 'Usuario'));
-					echo $this->Form->input('password', array('class' => 'form-control', 'label' => 'Contraseña'));
-					echo $this->Form->input('role', 
+					//echo $this->Form->input('password', array('class' => 'form-control', 'label' => 'Contraseña'));
+					/*echo $this->Form->input('role', 
 							array('class' => 'form-control', 
 									'label' => 'Rol', 
 									'type' => 'select', 
 									'options' => array('admin' => 'Administrador', 
 														'user' => 'Usuario'), 
-													array('class' => 'form-control')));
+													array('class' => 'form-control')));*/
 				?>
 				</fieldset>
 			<p>

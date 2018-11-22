@@ -39,6 +39,11 @@
 
                 <?php echo $this->Html->link('Mis platillos', array('controller' => 'item_previos', 'action' => 'view'), array('class' => 'btn btn-success navbar-btn') ); ?>
 
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <?php echo $this->Html->link('Salir', array('controller' => 'users', 'action' => 'logout')); ?>
+                    </li>
+                </ul>          
             </ul>
         </div><!--/.nav-collapse -->
     </div>

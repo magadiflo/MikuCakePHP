@@ -31,5 +31,40 @@ App::uses('Controller', 'Controller');
  * @link		http://book.cakephp.org/2.0/en/controllers.html#the-app-controller
  */
 class AppController extends Controller {
-    public $components = array('DebugKit.Toolbar');
+    public $components = array(
+        'Session',
+        'Auth' => array(
+            //En este caso apenas nos logueemos nos redireccionará a la lista de usuarios
+            'loginRedirect' => array(
+                'controller' => 'users',
+                'action' => 'index'
+            ),
+            //A donde nos redigirirá una vez salga el usuario del sistema
+            'logoutRedirect' => array(
+                'controller' => 'users',
+                'action' => 'login'
+            ),
+            //Indicamos el tipo de encriptación que usamos
+            'authenticate' => array(
+                'Form' => array(
+                    'passwordHasher' => 'Blowfish'
+                )
+            ),
+             //No permitirá mostrar el mensaje de error al autenticarse ya que eso lo
+             //mostraremos de una vista especial
+            'authError' => false
+        ),
+        'DebugKit.Toolbar'
+    );
+
+    //Antes de que el usuario se loguee, es decir
+    //se puedene establecer acceso del usuario sin
+    //necesidad de que esté logueado
+    public function beforeFilter(){
+        $this->Auth->allow('login', 'logout');
+        //Definimos una variable 'current_user', el cual
+        //mandará los datos del usuario actual.
+        //Podrá ser accedido desde cualquier controlador de la aplicación.
+        $this->set('current_user', $this->Auth->user());
+    }
 }
