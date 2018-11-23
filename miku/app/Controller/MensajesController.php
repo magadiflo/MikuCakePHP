@@ -53,35 +53,39 @@ class MensajesController extends AppController {
 		$this->set(compact('users'));
 	}
 
-	public function edit($id = null) {
+	public function edit() {
+		$id = $this->request->data['Mensaje']['id'];
 		if (!$this->Mensaje->exists($id)) {
-			throw new NotFoundException(__('Invalid mensaje'));
+			throw new NotFoundException(__('El id del mensaje no existe'));
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->Mensaje->save($this->request->data)) {
-				$this->Session->setFlash(__('The mensaje has been saved.'));
+				$this->Session->setFlash('El mensaje fue confirmado.', 
+					'default', array('class' => 'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The mensaje could not be saved. Please, try again.'));
+				$this->Session->setFlash('El mensaje no pudo ser confirmado.', 
+					'default', array('class' => 'alert alert-danger'));
 			}
-		} else {
-			$options = array('conditions' => array('Mensaje.' . $this->Mensaje->primaryKey => $id));
-			$this->request->data = $this->Mensaje->find('first', $options);
+		} else{
+			$this->Session->setFlash('Error, el id fue enviado por url', 
+			'default', array('class' => 'alert alert-danger'));
+			return $this->redirect(array('action' => 'index'));
 		}
-		$users = $this->Mensaje->User->find('list');
-		$this->set(compact('users'));
 	}
 
 	public function delete($id = null) {
 		$this->Mensaje->id = $id;
 		if (!$this->Mensaje->exists()) {
-			throw new NotFoundException(__('Invalid mensaje'));
+			throw new NotFoundException(__('El id del mensaje es inválido'));
 		}
 		$this->request->allowMethod('post', 'delete');
 		if ($this->Mensaje->delete()) {
-			$this->Session->setFlash(__('The mensaje has been deleted.'));
+			$this->Session->setFlash('El mensaje fue eliminado.', 
+					'default', array('class' => 'alert alert-success'));
 		} else {
-			$this->Session->setFlash(__('The mensaje could not be deleted. Please, try again.'));
+			$this->Session->setFlash('El mensaje no pudo ser eliminado.', 
+					'default', array('class' => 'alert alert-danger'));
 		}
 		return $this->redirect(array('action' => 'index'));
 	}

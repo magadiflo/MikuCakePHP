@@ -23,7 +23,9 @@
 		<table  class="table table-striped table-hover">
 			<thead>
 				<tr>
+					<?php if($current_user['role'] == 'admin'): ?>
 					<th><?php echo $this->Paginator->sort('id'); ?></th>
+					<?php endif; ?>
 					<th><?php echo $this->Paginator->sort('user_id'); ?></th>
 					<th><?php echo $this->Paginator->sort('mensaje'); ?></th>
 					<th><?php echo $this->Paginator->sort('estado'); ?></th>
@@ -35,7 +37,9 @@
 			<tbody>
 				<?php foreach ($mensajes as $mensaje): ?>
 					<tr>
+						<?php if($current_user['role'] == 'admin'): ?>
 						<td><?php echo h($mensaje['Mensaje']['id']); ?>&nbsp;</td>
+						<?php endif; ?>
 						<td>
 							<?php echo $this->Html->link($mensaje['User']['name'], array('controller' => 'users', 'action' => 'view', $mensaje['User']['id'])); ?>
 						</td>

@@ -6,7 +6,9 @@
                             <form class="form-horizontal" action="#">
                                 <fieldset>
 									<legend class="text-center leyenda">
+                                    <?php if($current_user['role'] == 'admin'): ?>
 										[<?php echo h($mensaje['Mensaje']['id']); ?>] 
+                                    <?php endif; ?>
 										<?php echo __('Mensaje'); ?>
 										
 									</legend>
@@ -66,15 +68,20 @@
 										<textarea class="form-control mensaje-recibido" id="message" name="message" rows="7" disabled><?php echo h($mensaje['Mensaje']['mensaje']); ?></textarea>
                                         </div>
                                     </div>
-
-                                    <div class="form-group">
-                                        <div class="col-md-12 text-center">
-                                            <button type="submit" class="btn btn-success btn-lg"><i class="fa fa-send-o"></i>
-                                                Confirmar recepción</button>
-                                        </div>
-                                    </div>
                                 </fieldset>
                             </form>
+                            <?php if($current_user['role'] == 'admin'): ?>
+                                <div class="form-group">
+                                    <fieldset>
+                                        <div class="col-md-12 text-center">
+                                            <?php echo $this->Form->create('Mensaje', array('controller' => 'mensajes', 'action' => 'edit')); ?>
+                                            <?php echo $this->Form->input('id', array('value'=> $mensaje['Mensaje']['id'], 'label'=>false, 'type'=>'hidden')); ?>
+                                            <?php echo $this->Form->input('estado', array('value'=>'2', 'label'=>false, 'type'=>'hidden')); ?>
+                                        <?php echo $this->Form->end(array('label'=>'Confirmar recepción', 'class'=>'btn btn-lg btn-success')); ?>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            <?php endif; ?>
                         </div>
                     </div>
                 </div>
