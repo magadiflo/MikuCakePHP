@@ -18,7 +18,12 @@ class OrdensController extends AppController {
         $this->paginate['Orden']['limit'] = 5;
         $this->paginate['Orden']['order'] = array('Orden.id' => 'DESC');
         
-        $this->set('ordens', $this->paginate());
+        if($this->Auth->user('role') == 'admin'){
+            $this->set('ordens', $this->paginate());
+        }else{
+            $this->paginate['Orden']['conditions'] = array('Orden.user_id' => $this->Auth->user('id'));
+            $this->set('ordens', $this->paginate());
+        }
 	}
 
 	public function add(){
