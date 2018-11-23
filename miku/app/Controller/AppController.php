@@ -64,7 +64,12 @@ class AppController extends Controller {
         $this->Auth->allow('login', 'logout');
         //Definimos una variable 'current_user', el cual
         //mandará los datos del usuario actual.
-        //Podrá ser accedido desde cualquier controlador de la aplicación.
+        //Podrá ser accedido desde cualquier vista de los controladores de la aplicación
         $this->set('current_user', $this->Auth->user());
+        /*Pero si se quiere acceder a los datos del usuario actualmente
+        logueado desde las clases controladores se puede usar:
+        $this->Auth->user('id'), donde 'id' puede ser el nombre del campo que 
+        se quiere recuperar
+        */
     }
 }

@@ -53,7 +53,11 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	<?php endif; ?>
 	<!-- Cuando el usuario haga login, con esta variable obtendremos todos los 
 	datos de dicho, usuario -->
-	<?php //debug($current_user); ?>
+	<?php //debug($current_user); 
+	echo "user: " . $current_user['name'] . "<br>"; 
+	echo "id: " . $current_user['id'] . "<br>";
+	echo "rol: " . $current_user['role'];
+	?>
 
 
 	<div id="notificacion">

@@ -24,7 +24,8 @@ class OrdensController extends AppController {
 	public function add(){
         //Recuperamos datos de un modelo con el que no se está relacionado
         $this->loadModel('ItemPrevio', 'RequestHandler');
-        $id_user_actual = 1;//Luego será cambiado por el usuario que haga sesión
+        //Usuario que está actualmente logueado
+        $id_user_actual = $this->Auth->user('id'); 
         $estado = 1;
         $orden_item = $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $id_user_actual), 'order'=>'ItemPrevio.id ASC'));
         	

@@ -7,19 +7,19 @@ class ItemPreviosController extends AppController {
 	public $helpers = array('Html', 'Form', 'Time');
 	
 	public function index(){
-
 	}
 
 	public function view() {
-		$res_itemPrevio = $this->ItemPrevio->find('all');
+		$idUserActual = $this->Auth->user('id'); 
+		$res_itemPrevio = $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $idUserActual), 'order'=>'ItemPrevio.id ASC'));
 		if(count($res_itemPrevio) == 0){
 			$this->Session->setFlash('Aún no se realiza ningún pedido',
                                         'default', 
 									array('class'=>'alert alert-warning'));
 			return $this->redirect(array('controller' => 'Platillos', 'action' => 'index'));
 		}
-		$this->set('itemPrevios', $this->ItemPrevio->find('all', array('order' => 'ItemPrevio.id ASC')));
-		$total_item_previos = $this->ItemPrevio->find('all', array('fields' => array('SUM(ItemPrevio.subtotal) AS subtotal')));
+		$this->set('itemPrevios', $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $idUserActual), 'order' => 'ItemPrevio.id ASC')));
+		$total_item_previos = $this->ItemPrevio->find('all', array('fields' => array('SUM(ItemPrevio.subtotal) AS subtotal'), 'conditions' => array('ItemPrevio.user_id' => $idUserActual)));
 		$mostrar_total_item_previos = $total_item_previos[0][0]['subtotal'];
 		$this->set('total_item_previos', $mostrar_total_item_previos);
 	}
@@ -28,6 +28,8 @@ class ItemPreviosController extends AppController {
 		if($this->request->is('ajax')){
 			$id = $this->request->data['id'];
 			$cantidad = $this->request->data['cantidad'];
+			//Usuario que está actualmente logueado
+			$idUserActual = $this->Auth->user('id'); 
 
 			$platillo = $this->ItemPrevio->Platillo->find('all', 
 			array('fields' => array('Platillo.precio'),
@@ -35,9 +37,6 @@ class ItemPreviosController extends AppController {
 			//[0], por que nos devolverá un solo registro
 			$precio = $platillo[0]['Platillo']['precio'];
 			$subTotal = $cantidad * $precio;
-			//Esta variable contendrá el id del usuario que esté logueado actualmente
-			//Luego lo cambiaremos
-			$idUserActual = 1; 
 			//Arreglo con datos de la BD-tbl-item_previos
 			$item_previos = array('user_id' => $idUserActual, 
 									'platillo_id' => $id, 
@@ -45,7 +44,7 @@ class ItemPreviosController extends AppController {
 									'subtotal' => $subTotal);
 			$existe_item = $this->ItemPrevio->find('all', 
 			array('fields' => array('ItemPrevio.platillo_id'),
-				  'conditions' => array('ItemPrevio.platillo_id' => $id)));
+				  'conditions' => array('ItemPrevio.platillo_id' => $id, 'ItemPrevio.user_id' => $idUserActual)));
 			if(count($existe_item) == 0){
 				//Guarda el Item en la BD-tbl-item_Previos
 				$this->ItemPrevio->save($item_previos);
@@ -69,8 +68,8 @@ class ItemPreviosController extends AppController {
 			$item_update = array('id' => $id, 'cantidad' => $cantidad, 'subtotal' => $subtotal_item);
 			$this->ItemPrevio->saveAll($item_update);
 		}
-	
-		$total = $this->ItemPrevio->find('all', array('fields' => array('SUM(ItemPrevio.subtotal) as subtotal')));
+		$idUserActual = $this->Auth->user('id'); 
+		$total = $this->ItemPrevio->find('all', array('fields' => array('SUM(ItemPrevio.subtotal) as subtotal'), 'conditions' => array('ItemPrevio.user_id' => $idUserActual)));
 		$mostrar_total = $total[0][0]['subtotal'];
 		$pedido_update = $this->ItemPrevio->find('all', array('fields' => array('ItemPrevio.id', 'ItemPrevio.subtotal'), 'conditions' => array('ItemPrevio.id' => $id)));
 		$mostrar_item = array('id' => $pedido_update[0]['ItemPrevio']['id'], 'subtotal' => $pedido_update[0]['ItemPrevio']['subtotal'], 'total' => $mostrar_total);
@@ -85,10 +84,11 @@ class ItemPreviosController extends AppController {
 			$this->ItemPrevio->delete($id);
 		}
 		//Vuelve a recalcular el total
-		$total_remove = $this->ItemPrevio->find('all', array('fields'=>array('SUM(ItemPrevio.subtotal) as subtotal')));
+		$idUserActual = $this->Auth->user('id'); 
+		$total_remove = $this->ItemPrevio->find('all', array('fields'=>array('SUM(ItemPrevio.subtotal) as subtotal'), 'conditions' => array('ItemPrevio.user_id' => $idUserActual)));
 		$mostrar_total_remove = $total_remove[0][0]['subtotal'];
 		
-		$items = $this->ItemPrevio->find('all');
+		$items = $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $idUserActual)));
 		if(count($mostrar_total_remove) == 0){
 			$mostrar_total_remove = "0.00";
 		}
@@ -103,7 +103,8 @@ class ItemPreviosController extends AppController {
 	}
 
 	public function quitar(){
-		if($this->ItemPrevio->deleteAll(1, false)){
+		$idUserActual = $this->Auth->user('id'); 
+		if($this->ItemPrevio->deleteAll(array('ItemPrevio.user_id' => $idUserActual), false)){
 			$this->Session->setFlash('Todos sus platillos seleccionados fueron eliminados.',
 		'default', array('class'=>'alert alert-success'));
 		}else{
