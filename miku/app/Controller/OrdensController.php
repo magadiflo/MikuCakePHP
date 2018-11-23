@@ -66,6 +66,27 @@ class OrdensController extends AppController {
 			$this->Session->setFlash('Ninguna orden ha sido procesada.', 'default', array('class'=>'alert alert-danger'));
             return $this->redirect(array('controller'=>'platillos', 'action'=>'index'));
         }
+    }
+    
+    public function edit() {
+		$id = $this->request->data['Orden']['id'];
+		if (!$this->Orden->exists($id)) {
+			throw new NotFoundException(__('El id de la orden no existe'));
+		}
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->Orden->save($this->request->data)) {
+				$this->Session->setFlash('La orden fue confirmada.', 
+					'default', array('class' => 'alert alert-success'));
+				return $this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash('La orden no pudo ser confirmada.', 
+					'default', array('class' => 'alert alert-danger'));
+			}
+		} else{
+			$this->Session->setFlash('Error, el id de la orden fue enviado por url', 
+			'default', array('class' => 'alert alert-danger'));
+			return $this->redirect(array('action' => 'index'));
+		}
 	}
 
 }

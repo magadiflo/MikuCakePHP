@@ -30,7 +30,9 @@
 		<table class="table table-striped">
             <thead>
                 <tr>
+                    <?php if($current_user['role'] == 'admin'): ?>
 					<th><?php echo $this->Paginator->sort('Id orden'); ?></th>
+                    <?php endif; ?>
                     <th><?php echo $this->Paginator->sort('Platillo'); ?></th>
                     <th><?php echo $this->Paginator->sort('Cantidad'); ?></th>
                     <th><?php echo $this->Paginator->sort('Subtotal (S/)'); ?></th>
@@ -39,7 +41,9 @@
             <tbody>
                 <?php foreach($ordenitems as $ordenitem): ?>
                     <tr>
+                        <?php if($current_user['role'] == 'admin'): ?>
 						<td><?php echo h($ordenitem['Orden']['id']); ?></td>
+                        <?php endif; ?>
                         <td><?php echo h($ordenitem['Platillo']['nombre']); ?></td>
                         <td><?php echo h($ordenitem['OrdenItem']['cantidad']);?></td>
                         <td><?php echo h($ordenitem['OrdenItem']['subtotal']);?></td>
