@@ -23,6 +23,28 @@
     </div>
 </nav>
 
+<!-- Formulario para registrarse -->
+<div class="container">
+    <div class="row">
+		<div class="col-md-6">
+			<?php echo $this->Form->create('User', array('url'=>array('controller'=>'users', 'action'=>'add'))); ?>
+			<fieldset>
+				<legend><?php echo __('Nuevo usuario'); ?></legend>
+			<?php
+				echo $this->Form->input('name', array('class'=>'form-control', 'label'=>'Nombre'));
+				echo $this->Form->input('lastname', array('class'=>'form-control', 'label'=>'Apellidos'));
+				echo $this->Form->input('email', array('class'=>'form-control', 'label'=>'E-mail'));
+				echo $this->Form->input('mobile', array('class'=>'form-control', 'label'=>'Teléfono/Celular'));
+				echo $this->Form->input('username', array('class'=>'form-control', 'label'=>'Usuario'));
+				echo $this->Form->input('password', array('class'=>'form-control', 'label'=>'Contraseña'));
+			?>
+			</fieldset>
+			<p><?php echo $this->Form->end(array('label'=>'Registrar', 'class'=>'btn btn-success')); ?></p>
+		</div>
+	</div>
+</div>
+<!-- /Formulario para registrarse -->
+
 <!-- Main jumbotron for a primary marketing message or call to action -->
 <div class="jumbotron">
     <div class="container">

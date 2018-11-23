@@ -46,17 +46,44 @@ class UsersController extends AppController {
 
 	public function add() {
 		if ($this->request->is('post')) {
-			$this->User->create();
-			//Por defecto los usuarios serán del rol = 'user'
-			$this->request->data['User']['role'] = 'user';
-			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash('Se creó un nuevo usuario.', 
-				'default', array('class' => 'alert alert-success'));
+			//Si hay un usuario logueado el que manda a registrar, el rol deberá ser 'admin'
+			if($this->Auth->user('id')){
+				$this->User->create();
+				$this->request->data['User']['role'] = 'admin';
+				if ($this->User->save($this->request->data)) {
+					$this->Session->setFlash('Se creó un nuevo usuario [admin]', 
+					'default', array('class' => 'alert alert-success'));
 
-				return $this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash('No se pudo crear el usuario.', 
-				'default', array('class' => 'alert alert-danger'));
+					return $this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash('No se pudo crear el nuevo usuario [admin].', 
+					'default', array('class' => 'alert alert-danger'));
+				}
+			}else{
+				//Registramos un usuario que no está logueado en el sistema.
+				//Por defecto su rol es 'user'
+				$this->User->create();
+				$this->request->data['User']['role'] = 'user';
+				if ($this->User->save($this->request->data)) {
+					$idUserRegistrado = $this->User->id;//id del usuario insertado
+					$userRegistrado = $this->User->find('all', array('conditions' => array('User.id' => $idUserRegistrado)));
+					$userActual = $userRegistrado[0]['User'];
+					//Establecemos el logueo automático
+					$loginAutomatico = $this->Auth->login($userActual);
+
+					if($loginAutomatico){
+						$this->Session->setFlash('Se registró correctamente al sistema [Logueado]', 
+												'default', array('class' => 'alert alert-success'));
+						return $this->redirect($this->Auth->redirectUrl());
+					}else{
+						$this->Session->setFlash('Problemas al autologueo después de registrarse', 
+												'default', array('class' => 'alert alert-warning'));
+						return $this->redirect(array('action' => 'index'));
+					}
+				} else {
+					$this->Session->setFlash('No se pudo crear el usuario.', 
+					'default', array('class' => 'alert alert-danger'));
+				}
 			}
 		}
 	}
