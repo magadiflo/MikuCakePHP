@@ -1,0 +1,20 @@
+.leyenda {
+    color: #58C56F;
+    font-weight: bold;
+    font-size: 27px;
+    padding: 10px;
+}
+.bigicon {
+    font-size: 35px;
+    color: #58C56F;
+}
+div.row{
+    margin-top: 20px;
+}
+div.well{
+    background: #f0f0f0;
+}
+.mensaje-recibido{
+    text-align: left;
+    border: 2px solid #449D44;
+}

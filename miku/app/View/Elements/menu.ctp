@@ -37,6 +37,14 @@
                     <?php echo $this->Html->link('Órdenes', array('controller' => 'ordens', 'action'=>'index')); ?>
                 </li>
 
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mensajes <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><?php echo $this->Html->link('Lista mensajes', array('controller'=>'mensajes', 'action' => 'index')); ?></li>
+                        <li><?php echo $this->Html->link('Nuevo mensaje', array('controller'=>'mensajes', 'action' => 'add')); ?></li>
+                    </ul>
+                </li>
+
                 <?php echo $this->Html->link('Mis platillos', array('controller' => 'item_previos', 'action' => 'view'), array('class' => 'btn btn-success navbar-btn') ); ?>
 
                 <ul class="nav navbar-nav navbar-right">

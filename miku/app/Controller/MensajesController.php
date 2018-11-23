@@ -1,37 +1,31 @@
 <?php
 App::uses('AppController', 'Controller');
-/**
- * Mensajes Controller
- *
- * @property Mensaje $Mensaje
- * @property PaginatorComponent $Paginator
- */
+
 class MensajesController extends AppController {
 
-/**
- * Components
- *
- * @var array
- */
-	public $components = array('Paginator');
+	public $components = array('Session', 'RequestHandler');
+    public $helpers = array('Html', 'Form', 'Time', 'Js');
+    public $paginate = array(
+        'limit' => '5',
+        'order' => array(
+            'Mensaje.id' => 'DESC'
+        ),
+    );
 
-/**
- * index method
- *
- * @return void
- */
 	public function index() {
 		$this->Mensaje->recursive = 0;
-		$this->set('mensajes', $this->Paginator->paginate());
+
+		$this->paginate['Mensaje']['limit'] = 5;
+		$this->paginate['Mensaje']['order'] = array('Mensaje.id' => 'DESC');
+		
+		if($this->Auth->user('role') == 'admin'){
+            $this->set('mensajes', $this->paginate());
+        }else{
+            $this->paginate['Mensaje']['conditions'] = array('Mensaje.user_id' => $this->Auth->user('id'));
+            $this->set('mensajes', $this->paginate());
+        }
 	}
 
-/**
- * view method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function view($id = null) {
 		if (!$this->Mensaje->exists($id)) {
 			throw new NotFoundException(__('Invalid mensaje'));
@@ -40,32 +34,25 @@ class MensajesController extends AppController {
 		$this->set('mensaje', $this->Mensaje->find('first', $options));
 	}
 
-/**
- * add method
- *
- * @return void
- */
 	public function add() {
 		if ($this->request->is('post')) {
+			$this->request->data['Mensaje']['user_id'] = $this->Auth->user('id');
+			$this->request->data['Mensaje']['estado'] = 1;
+		
 			$this->Mensaje->create();
 			if ($this->Mensaje->save($this->request->data)) {
-				$this->Session->setFlash(__('The mensaje has been saved.'));
+				$this->Session->setFlash('Su mensaje fue enviado. ¡Nos contactaremos ponto!', 
+										'default', array('class'=>'alert alert-success'));
 				return $this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The mensaje could not be saved. Please, try again.'));
+				$this->Session->setFlash('No pudo ser enviado su mensaje.', 
+										'default', array('class'=>'alert alert-danger'));
 			}
 		}
 		$users = $this->Mensaje->User->find('list');
 		$this->set(compact('users'));
 	}
 
-/**
- * edit method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function edit($id = null) {
 		if (!$this->Mensaje->exists($id)) {
 			throw new NotFoundException(__('Invalid mensaje'));
@@ -85,13 +72,6 @@ class MensajesController extends AppController {
 		$this->set(compact('users'));
 	}
 
-/**
- * delete method
- *
- * @throws NotFoundException
- * @param string $id
- * @return void
- */
 	public function delete($id = null) {
 		$this->Mensaje->id = $id;
 		if (!$this->Mensaje->exists()) {
