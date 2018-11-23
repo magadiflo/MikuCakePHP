@@ -18,7 +18,7 @@ class ItemPreviosController extends AppController {
 									array('class'=>'alert alert-warning'));
 			return $this->redirect(array('controller' => 'Platillos', 'action' => 'index'));
 		}
-		$this->set('itemPrevios', $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $idUserActual), 'order' => 'ItemPrevio.id ASC')));
+		$this->set('itemPrevios', $res_itemPrevio);
 		$total_item_previos = $this->ItemPrevio->find('all', array('fields' => array('SUM(ItemPrevio.subtotal) AS subtotal'), 'conditions' => array('ItemPrevio.user_id' => $idUserActual)));
 		$mostrar_total_item_previos = $total_item_previos[0][0]['subtotal'];
 		$this->set('total_item_previos', $mostrar_total_item_previos);
