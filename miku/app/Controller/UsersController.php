@@ -13,11 +13,26 @@ class UsersController extends AppController {
     );
 	
 	public function beforeFilter(){
-		//Llamamos al beforeFilter() del AppController
+		//Llamamos al beforeFilter() del AppController para 
+		//el manejo del login y logou que no necesita autenticación
 		parent::beforeFilter();
 		//Definirá las acciones a las que el usuario 
 		//esté o no autentificado puede acceder, en este caso al add
 		$this->Auth->allow('add');
+	}
+
+	public function isAuthorized($user){
+		if($user['role']=='user'){
+			if(in_array($this->action, array('index', 'view', 'edit', 'editAccount'))){
+				return true;
+			}else{
+				if($this->Auth->user('id')){//Si el usuario sigue logueado pero no tiene acceso a la acción que está arribita(add, index)
+					$this->Session->setFlash('No puede acceder', 'default', array('class'=>'alert alert-danger'));
+					$this->redirect($this->Auth->redirect());
+				}
+			}
+		}
+		return parent::isAuthorized($user);
 	}
 
 	public function login(){
@@ -100,6 +115,13 @@ class UsersController extends AppController {
 					$this->Session->setFlash('No se pudo crear el usuario.', 
 					'default', array('class' => 'alert alert-danger'));
 				}
+			}
+		}else{
+			if(!$this->Auth->user('id') || ($this->Auth->user('role') != 'admin')){
+				//Cuando traten de ingresar por la url sin estar autenticado
+				$this->Session->setFlash('No tienes acceso.', 
+						'default', array('class' => 'alert alert-danger'));
+				return $this->redirect($this->Auth->redirectUrl());
 			}
 		}
 	}

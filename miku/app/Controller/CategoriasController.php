@@ -17,7 +17,21 @@ class CategoriasController extends AppController {
         	'recursive' => 0,
         	'order' => array('Platillo.id' => 'desc')
         )
-    );
+	);
+	
+	public function isAuthorized($user){
+		if($user['role']=='user'){
+			if(in_array($this->action, array('index', 'view'))){
+				return true;
+			}else{
+				if($this->Auth->user('id')){//Si el usuario sigue logueado pero no tiene acceso a la acción que está arribita(add, index)
+					$this->Session->setFlash('No puede acceder', 'default', array('class'=>'alert alert-danger'));
+					$this->redirect($this->Auth->redirect());
+				}
+			}
+		}
+		return parent::isAuthorized($user);
+	}
 
 	//Muestra lista de categorías
 	public function index() {

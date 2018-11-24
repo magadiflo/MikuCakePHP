@@ -5,10 +5,21 @@ class ItemPreviosController extends AppController {
 
 	public $components = array('Session', 'RequestHandler');
 	public $helpers = array('Html', 'Form', 'Time');
-	
-	public function index(){
-	}
 
+	public function isAuthorized($user){
+		if($user['role']=='user'){
+			if(in_array($this->action, array('view', 'add', 'itemupdate', 'remove', 'quitar', 'recalcular'))){
+				return true;
+			}else{
+				if($this->Auth->user('id')){//Si el usuario sigue logueado pero no tiene acceso a la acción que está arribita(add, index)
+					$this->Session->setFlash('No puede acceder', 'default', array('class'=>'alert alert-danger'));
+					$this->redirect($this->Auth->redirect());
+				}
+			}
+		}
+		return parent::isAuthorized($user);
+	}
+	
 	public function view() {
 		$idUserActual = $this->Auth->user('id'); 
 		$res_itemPrevio = $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $idUserActual), 'order'=>'ItemPrevio.id ASC'));

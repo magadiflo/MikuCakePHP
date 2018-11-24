@@ -36,7 +36,7 @@ class AppController extends Controller {
         'Auth' => array(
             //En este caso apenas nos logueemos nos redireccionará a la lista de usuarios
             'loginRedirect' => array(
-                'controller' => 'users',
+                'controller' => 'platillos',
                 'action' => 'index'
             ),
             //A donde nos redigirirá una vez salga el usuario del sistema
@@ -44,19 +44,26 @@ class AppController extends Controller {
                 'controller' => 'users',
                 'action' => 'login'
             ),
+            //Cuando no está autorizado a realizar alguna acción, redirecciona.
+            'unauthorizedRedirect' => array(
+                'controller' => 'platillos',
+                'action' => 'index',
+                'prefix' => false
+            ),
             //Indicamos el tipo de encriptación que usamos
             'authenticate' => array(
                 'Form' => array(
                     'passwordHasher' => 'Blowfish'
                 )
             ),
+            //Indicamos que las autorizaciones se harán desde el controlador
+            'authorize' => array('Controller'),
              //No permitirá mostrar el mensaje de error al autenticarse ya que eso lo
              //mostraremos de una vista especial
             'authError' => false
         ),
         'DebugKit.Toolbar'
     );
-
     //Antes de que el usuario se loguee, es decir
     //se puedene establecer acceso del usuario sin
     //necesidad de que esté logueado
@@ -71,5 +78,13 @@ class AppController extends Controller {
         $this->Auth->user('id'), donde 'id' puede ser el nombre del campo que 
         se quiere recuperar
         */
+    }
+    // Se replicará en todos los controladores de la aplicación
+    public function isAuthorized($user){
+        //Si es de tipo admin, que acceda a cualquier parte de la aplicación.
+        if(isset($user['role']) && $user['role'] === 'admin'){
+            return true;
+        }
+        return false;
     }
 }

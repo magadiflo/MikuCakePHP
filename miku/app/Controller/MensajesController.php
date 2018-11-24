@@ -10,7 +10,21 @@ class MensajesController extends AppController {
         'order' => array(
             'Mensaje.id' => 'DESC'
         ),
-    );
+	);
+	
+	public function isAuthorized($user){
+		if($user['role']=='user'){
+			if(in_array($this->action, array('index', 'add' ,'view'))){
+				return true;
+			}else{
+				if($this->Auth->user('id')){//Si el usuario sigue logueado pero no tiene acceso a la acción que está arribita(add, index)
+					$this->Session->setFlash('No puede acceder', 'default', array('class'=>'alert alert-danger'));
+					$this->redirect($this->Auth->redirect());
+				}
+			}
+		}
+		return parent::isAuthorized($user);
+	}
 
 	public function index() {
 		$this->Mensaje->recursive = 0;
