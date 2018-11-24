@@ -1,8 +1,22 @@
-<div class="container">
+<?php
+    $this->Paginator->options(array(
+        'update' => '#contenedor-users',
+        'before' => $this->Js->get("#procesando")->effect('fadeIn', array('buffer'=>false)),
+        'complete' => $this->Js->get("#procesando")->effect('fadeOut', array('buffer'=>false))
+    ));
+?>
+<div class="container" id="contenedor-users">
 	<div class="page-header">
 		<h2><?php echo __('Usuarios'); ?></h2>
 	</div>
 	<div class="col-md-12">
+		<div class="progress oculto" id="procesando">
+            <div class="progress-bar progress-bar-striped active" 
+                role="progressbar" aria-valuenow="100" aria-valuemin="0" 
+                aria-valuemax="100" style="width:100%">
+                <span class="sr-only">100% Complete</span>
+            </div>
+        </div>
 		<table class="table table-striped table-hover">
 			<thead>
 				<tr>
@@ -12,7 +26,6 @@
 					<th><?php echo $this->Paginator->sort('email'); ?></th>
 					<th><?php echo $this->Paginator->sort('mobile'); ?></th>
 					<th><?php echo $this->Paginator->sort('username'); ?></th>
-					<!-- <th>< ?php echo $this->Paginator->sort('password'); ?></th> -->
 					<th><?php echo $this->Paginator->sort('role'); ?></th>
 					<th><?php echo $this->Paginator->sort('created'); ?></th>
 					<th><?php echo $this->Paginator->sort('modified'); ?></th>
@@ -28,7 +41,6 @@
 					<td><?php echo h($user['User']['email']); ?>&nbsp;</td>
 					<td><?php echo h($user['User']['mobile']); ?>&nbsp;</td>
 					<td><?php echo h($user['User']['username']); ?>&nbsp;</td>
-					<!-- <td>< ?php echo h($user['User']['password']); ?>&nbsp;</td> -->
 					<td><?php echo h($user['User']['role']); ?>&nbsp;</td>
 					<td><?php echo h($user['User']['created']); ?>&nbsp;</td>
 					<td><?php echo h($user['User']['modified']); ?>&nbsp;</td>
@@ -36,13 +48,12 @@
 						<?php echo $this->Html->link(__(''), 
 								array('action' => 'view', $user['User']['id']), 
 								array('class'=>'btn btn-sm btn-default fa fa-eye')); ?>
-						<?php echo $this->Html->link(__(''), 
-								array('action' => 'edit', $user['User']['id']),
-								array('class'=>'btn btn-sm btn-primary fa fa-edit')); ?>
-						<?php echo $this->Form->postLink(__(''), 
-						array('action' => 'delete', $user['User']['id']), 
-						array('class'=>'btn btn-sm btn-danger fa fa-trash'),
-						__('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
+						<?php if($current_user['role'] == 'admin'):?>
+							<?php echo $this->Form->postLink(__(''), 
+							array('action' => 'delete', $user['User']['id']), 
+							array('class'=>'btn btn-sm btn-danger fa fa-trash'),
+							__('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
+						<?php endif; ?>
 					</td>
 				</tr>
 			<?php endforeach; ?>
@@ -50,34 +61,16 @@
 		</table>
 	</div>
 	<p>
-		<?php echo $this->Paginator->counter(array(
-		'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-		));
+		<?php
+			echo $this->Paginator->counter(array(
+				'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
+			));
 		?>	
-	</p>
-	<nav>
-		<ul class="pagination">
-			<li> <?php echo $this->Paginator->prev('< ' . __('previous'), array('tag' => false), null, array('class' => 'prev disabled')); ?> </li>
-			<?php echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentTag' => 'a', 'currentClass' => 'active')); ?>
-			<li> <?php echo $this->Paginator->next(__('next') . ' >', array('tag' => false), null, array('class' => 'next disabled')); ?> </li>
-		</ul>
-	</nav>
-
-	<div class="btn-group">
-		<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-			<?php echo __('Acciones'); ?> <span class="caret"></span>
-		</button>
-		<ul class="dropdown-menu" role="menu">
-			<li><?php echo $this->Html->link(__('New User'), array('action' => 'add')); ?></li>
-			<li class="divider"></li>
-			<li><?php echo $this->Html->link(__('List Item Previos'), array('controller' => 'item_previos', 'action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('New Item Previo'), array('controller' => 'item_previos', 'action' => 'add')); ?> </li>
-			<li class="divider"></li>
-			<li><?php echo $this->Html->link(__('List Mensajes'), array('controller' => 'mensajes', 'action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('New Mensaje'), array('controller' => 'mensajes', 'action' => 'add')); ?> </li>
-			<li class="divider"></li>
-			<li><?php echo $this->Html->link(__('List Ordens'), array('controller' => 'ordens', 'action' => 'index')); ?> </li>
-			<li><?php echo $this->Html->link(__('New Orden'), array('controller' => 'ordens', 'action' => 'add')); ?> </li>
-		</ul>
-	</div>
+	    </p>
+        <ul class="pagination">
+            <li> <?php echo $this->Paginator->prev('< ' . __('previous'), array('tag' => false), null, array('class' => 'prev disabled')); ?> </li>
+            <?php echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentTag' => 'a', 'currentClass' => 'active')); ?>
+            <li> <?php echo $this->Paginator->next(__('next') . ' >', array('tag' => false), null, array('class' => 'next disabled')); ?> </li>
+        </ul>
+        <?php echo $this->Js->writeBuffer(); ?>
 </div>

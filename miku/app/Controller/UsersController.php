@@ -3,7 +3,14 @@ App::uses('AppController', 'Controller');
 
 class UsersController extends AppController {
 
-	public $components = array('Session','Paginator');
+	public $components = array('Session', 'RequestHandler');
+    public $helpers = array('Html', 'Form', 'Time', 'Js');
+    public $paginate = array(
+        'limit' => '5',
+        'order' => array(
+            'User.id' => 'DESC'
+        ),
+    );
 	
 	public function beforeFilter(){
 		//Llamamos al beforeFilter() del AppController
@@ -33,7 +40,16 @@ class UsersController extends AppController {
 
 	public function index() {
 		$this->User->recursive = 0;
-		$this->set('users', $this->Paginator->paginate());
+		
+		$this->paginate['User']['limit'] = 5;
+		$this->paginate['User']['order'] = array('User.id' => 'DESC');
+		
+		if($this->Auth->user('role') == 'admin'){
+            $this->set('users', $this->paginate());
+        }else{
+            $this->paginate['User']['conditions'] = array('User.id' => $this->Auth->user('id'));
+            $this->set('users', $this->paginate());
+        }
 	}
 
 	public function view($id = null) {
@@ -94,9 +110,9 @@ class UsersController extends AppController {
 		}
 		if ($this->request->is(array('post', 'put'))) {
 			if ($this->User->save($this->request->data)) {
-				$this->Session->setFlash('Datos actualizados correctamente.', 
+				$this->Session->setFlash('Datos actualizados. Es necesario que vuelva a iniciar sesión.', 
 												'default', array('class' => 'alert alert-success'));
-				return $this->redirect(array('action' => 'index'));
+				return $this->redirect($this->Auth->logout());
 			} else {
 				$this->Session->setFlash('No se pudo actualizar los datos del usuario.', 
 												'default', array('class' => 'alert alert-warning'));
@@ -104,6 +120,23 @@ class UsersController extends AppController {
 		} else {
 			$options = array('conditions' => array('User.' . $this->User->primaryKey => $id));
 			$this->request->data = $this->User->find('first', $options);
+		}
+	}
+
+	public function editAccount($id = null){
+		if (!$this->User->exists($id)) {
+			throw new NotFoundException(__('El id de usuario es inválido.'));
+		}
+		$this->request->data['User']['id'] = $id;
+		if ($this->request->is(array('post', 'put'))) {
+			if ($this->User->save($this->request->data)) {
+				$this->Session->setFlash('Su cuenta fue actualizada. Es necesario que vuelva a iniciar sesión.', 
+												'default', array('class' => 'alert alert-success'));
+				return $this->redirect($this->Auth->logout());
+			} else {
+				$this->Session->setFlash('No se pudo actualizar su cuenta.', 
+												'default', array('class' => 'alert alert-warning'));
+			}
 		}
 	}
 

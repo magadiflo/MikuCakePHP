@@ -30,6 +30,9 @@
                     <ul class="dropdown-menu">
                         <li><?php echo $this->Html->link('Lista usuarios', array('controller'=>'users', 'action' => 'index')); ?></li>
                         <li><?php echo $this->Html->link('Nuevo usuario', array('controller'=>'users', 'action' => 'add')); ?></li>
+                        <li class="divider"></li>
+                        <li><?php echo $this->Html->link('Editar datos', array('controller'=>'users', 'action' => 'edit', $current_user['id'])); ?></li>   
+                        <li><?php echo $this->Html->link('Editar cuenta', array('controller'=>'users', 'action' => 'editAccount', $current_user['id'])); ?></li>
                     </ul>
                 </li>
 
