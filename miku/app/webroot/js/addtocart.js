@@ -15,6 +15,7 @@ $(document).ready(function(){
                                         '<span class="fa fa-eye"></span> '+
                                         'Ver sus platillos</a></div>');
                 $('.flash-msg').delay(3000).fadeOut(5000);
+                actualizaVista();
             },
             error: function(){
                 alert("Tenemos problemas [addtocart.js]");
@@ -22,4 +23,15 @@ $(document).ready(function(){
         });
         return false;
     });
+    function actualizaVista(){
+        $.ajax({
+            type: "POST",
+            url: basePath + "item_previos/num_item_selected",
+            dataType: "json",
+            success: function (data) {
+                console.log("Cantidad de productos: " + (data.muestra_cantidad.cantidad));
+                $('.cant-selected').text((data.muestra_cantidad.cantidad)+' Platillos');
+            }
+        });
+    }
 });

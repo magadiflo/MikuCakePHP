@@ -30,10 +30,8 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	<?php
 		
 		echo $this->Html->meta('icon');
-		echo $this->Html->css(array('bootstrap.min', 'font-awesome', 'index.css', 'fileinput.min.css'));
-		//echo $this->Html->css('style.css');
-		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min','index' ,'fileinput.min.js'));
-		//echo $this->Html->script('script');
+		echo $this->Html->css(array('bootstrap.min', 'font-awesome', 'index.css', 'style.css' ,'fileinput.min.css'));
+		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min','index', 'script','fileinput.min.js'));
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');

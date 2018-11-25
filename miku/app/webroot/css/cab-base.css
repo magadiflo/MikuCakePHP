@@ -21,6 +21,10 @@
 .sesion a.user-logueado{
     display: block !important;
     text-align: center;
+    color: #9d9d9d;
+}
+.sesion .cant-selected{
+    color: white !important;
 }
 .cuenta-producto{
     background: #58C56F;

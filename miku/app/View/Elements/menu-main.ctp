@@ -35,7 +35,10 @@
                 array('class'=>'user-logueado')); ?>
               <div class="cuenta-producto">
                   <i class="fa fa-cutlery"></i>
-                  <span>0 productos</span>
+                  <span class="cant-selected">
+                  <?php echo $this->Html->link("Mis platillos", 
+                    array('controller'=>'item_previos', 'action' => 'view')); ?>                    
+                  </span>
               </div>
             </div>
           <?php endif; ?>

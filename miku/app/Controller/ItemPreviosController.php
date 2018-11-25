@@ -89,6 +89,16 @@ class ItemPreviosController extends AppController {
 		$this->autoRender = false;
 	}
 
+	public function num_item_selected(){
+		if($this->request->is('ajax')){
+			$idUserActual = $this->Auth->user('id'); 
+			$res_itemPrevio = $this->ItemPrevio->find('all', array('conditions' => array('ItemPrevio.user_id' => $idUserActual)));
+			$muestra_cantidad = array('cantidad' => count($res_itemPrevio));
+			echo json_encode(compact('muestra_cantidad'));
+		}
+		$this->autoRender = false;
+	}
+
 	public function remove(){
 		if($this->request->is('ajax')){
 			$id = $this->request->data['id'];

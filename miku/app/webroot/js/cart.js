@@ -52,9 +52,22 @@ $(document).ready(function(){
                     //si no hay ningún pedido, nos redireccionará al index
                     window.location.replace(basePath + "platillos/index");
                 }
+                actualizaVista();
+
             },
             error: function(){
                 alert("Error al tratar de eliminar el platillo seleccionado");
+            }
+        });
+    }
+    function actualizaVista(){
+        $.ajax({
+            type: "POST",
+            url: basePath + "item_previos/num_item_selected",
+            dataType: "json",
+            success: function (data) {
+                console.log("Cantidad de productos: " + (data.muestra_cantidad.cantidad));
+                $('.cant-selected').text((data.muestra_cantidad.cantidad)+' Platillos');
             }
         });
     }
