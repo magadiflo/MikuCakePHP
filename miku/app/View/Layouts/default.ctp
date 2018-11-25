@@ -30,8 +30,10 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	<?php
 		
 		echo $this->Html->meta('icon');
-		echo $this->Html->css(array('style.css', 'bootstrap.min', 'font-awesome', 'fileinput.min.css'));
-		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min', 'script', 'fileinput.min.js'));
+		echo $this->Html->css(array('bootstrap.min', 'font-awesome', 'index.css', 'fileinput.min.css'));
+		//echo $this->Html->css('style.css');
+		echo $this->Html->script(array('jquery-3.3.1.min', 'bootstrap.min','index' ,'fileinput.min.js'));
+		//echo $this->Html->script('script');
 
 		echo $this->fetch('meta');
 		echo $this->fetch('css');
@@ -46,6 +48,18 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	</script>
 </head>
 <body>
+	<header role="banner">
+		<?php echo $this->element('menu-main'); ?>
+		<div class="container">
+			<nav class="navbar-inverse">
+				<?php echo $this->element('menu-mobil'); ?>
+				<?php echo $this->element('menu-modal-sesion'); ?>
+				<?php echo $this->element('menu-modal-register'); ?>
+				<?php echo $this->element('menu-options'); ?>
+			</nav>
+		</div>
+	</header>
+	
 	<!-- Esta variable $current_user, lo definimos en AppController. Si el usuario está
 	autenticado o no para poder mostrar el menú principal -->
 	<?php if(isset($current_user)): ?>
@@ -54,9 +68,9 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	<!-- Cuando el usuario haga login, con esta variable obtendremos todos los 
 	datos de dicho, usuario -->
 	<?php //debug($current_user); 
-	echo "user: " . $current_user['name'] . "<br>"; 
-	echo "id: " . $current_user['id'] . "<br>";
-	echo "rol: " . $current_user['role'];
+	// echo "user: " . $current_user['name'] . "<br>"; 
+	// echo "id: " . $current_user['id'] . "<br>";
+	// echo "rol: " . $current_user['role'];
 	?>
 
 
@@ -73,8 +87,9 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	<br>
 	<div id="msg"></div>
 	<br>
-
-	<?php echo $this->element('sql_dump'); ?>
+	
+	<?php echo $this->element('footer'); ?>
+	<!-- < ?php echo $this->element('sql_dump'); ?> -->
 </body>
 	
 </html>

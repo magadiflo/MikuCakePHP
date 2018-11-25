@@ -1,7 +1,16 @@
+$(document).ready(function(){
+
 //SLIDER: Tiempo de transición.
 $('.carousel').carousel({
     interval: 10000,
     pause: "hover"
+});
+/*MODAL: Muestra pasos para hacer el pedido.*/
+$("#btnPasos").on("click", function () {
+    console.log("mostrando pasos");
+    $('#cuadro-mostrar-pasos').modal({
+        show: true
+    });
 });
 /*MODAL: Muestra formulario de acceso o registro al sistema*/
 $(".enlace-iniciar-sesion").on("click", function () {
@@ -53,3 +62,5 @@ function limpiaCamposIniciarSesion() {
     $("#email-registro").val('');
     $("#terminos-condiciones").prop('checked', false);
 }
+
+});
