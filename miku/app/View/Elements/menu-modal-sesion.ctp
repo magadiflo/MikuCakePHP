@@ -13,22 +13,20 @@
             <div class="modal-body">
                 <div class="row">
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12 izquierda-inicia-sesion">
-                        <form action="">
+                        <?php echo $this->Form->create('User'); ?>
                             <h3 class="titulo-iniciar-sesion">Ya tengo cuenta</h3>
                             <div class="form-group">
-                                <input type="email" id="email-acceso" name="email-acceso" class="form-control input-lg"
-                                placeholder="Email" required>
+                                <?php echo $this->Form->input('username', array('label' => false, 'class' => 'form-control input-lg', 'placeholder' => 'Usuario')); ?>
                             </div>
                             <div class="form-group">
-                                <input type="password" id="pass-acceso" name="pass-acceso" class="form-control input-lg"
-                                placeholder="Contraseña" required>
+                                <?php echo $this->Form->input('password', array('label' => false, 'class' => 'form-control input-lg', 'placeholder' => 'Contraseña')); ?>
                             </div>
-                            <button class="btn btn-primary btn-block btn-lg">Ingresar</button>
-                            <a href="" class="recupera-pass" target="_blank">¿Has olvidado tu contraseña?</a>
-                        </form>
+                            <?php echo $this->Form->button('Ingresar', array('class' => 'btn btn-primary btn-block btn-lg')); ?>
+                            <!-- <a href="" class="recupera-pass" target="_blank">¿Has olvidado tu contraseña?</a> -->
+                        <?php echo $this->Form->end(); ?>
                     </div>
                     <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
-                        <form action="">
+                        <form action="#">
                             <h3 class="titulo-iniciar-sesion">Soy usuario nuevo</h3>
                             <div class="form-group" id="grupo-email-registro">
                                 <input type="email" id="email-registro" name="email-registro" class="form-control input-lg"

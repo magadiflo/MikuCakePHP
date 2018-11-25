@@ -31,7 +31,7 @@ $("#btn-registrar").on("click", function (e) {
         alert("Debe aceptar los términos y condiciones para continuar con el registro.");
         return;
     } else {
-        $("#email-comprueba").val(emailRegistro);
+        $("#UserEmail").val(emailRegistro);
         $('#cuadro-iniciar-sesion')
             .modal('hide')
             .on('hidden.bs.modal', function (e) {
@@ -40,18 +40,6 @@ $("#btn-registrar").on("click", function (e) {
             });
     }
 });
-$("#btn-finalizar-registro").on("click", function (e) {
-    if (!passValidoRegistro()) {
-        e.preventDefault();
-        alert("Las contraseñas no coinciden.");
-        return;
-    }
-});
-function passValidoRegistro() {
-    var pass1 = $("#pass-registro").val();
-    var pass2 = $("#pass-registro-repite").val();
-    return pass1 === pass2;
-}
 function esEmail(email) {
     var regex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
     return regex.test(email);

@@ -1,8 +1,9 @@
+<?php echo $this->Html->css('cab-base'); ?>
 <div class="container">
   <div class="visible-xs">
     <h1 class="titulo-principal">Miku</h1>
   </div>
-  <div class="hidden-xs">
+  <div class="hidden-xs cab">
     <div class="row">
       <div class="col-lg-2 col-md-2 col-sm-2">
         <a href="" target="_black">
@@ -22,8 +23,22 @@
       </div>
       <div class="col-lg-2 col-md-2 col-sm-2">
         <div class="sesion">
-          <i class="fa fa-user fa-lg"></i>
-          <a href="#" class="enlace-iniciar-sesion">Iniciar sesión</a>
+          <?php if(!isset($current_user)): ?>
+            <div>
+              <i class="fa fa-user fa-lg"></i>
+              <a href="#" class="enlace-iniciar-sesion">Iniciar sesión</a>
+            </div>
+          <?php else: ?>
+            <div class="user-logueado-vista">
+              <?php echo $this->Html->link($current_user['username'], 
+                array('controller'=>'users', 'action' => 'view', $current_user['id']),
+                array('class'=>'user-logueado')); ?>
+              <div class="cuenta-producto">
+                  <i class="fa fa-cutlery"></i>
+                  <span>0 productos</span>
+              </div>
+            </div>
+          <?php endif; ?>
         </div>
       </div>
     </div>

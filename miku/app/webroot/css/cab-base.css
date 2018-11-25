@@ -1,0 +1,44 @@
+/*-- * --*/
+.cab{
+    position: relative;
+}
+
+/*Menú bar: sm-md-lg*/
+.hidden-xs .sesion .user-logueado-vista{
+    position: absolute;
+    right: 30px;
+    bottom: -23px;
+    width: 150px;
+}  
+
+/*Menú bar: xs*/
+.visible-xs .sesion{
+    position: relative;
+    right: 0px;
+    bottom: 8px;
+}  
+/*-- * --*/
+.sesion a.user-logueado{
+    display: block !important;
+    text-align: center;
+}
+.cuenta-producto{
+    background: #58C56F;
+    color: white;
+    font-weight: bold;
+    border: 1px solid rgba(201,184,145, 0.4);
+    border-radius: 2px;
+    height: 40px;
+    position: relative;
+}
+.cuenta-producto i{
+    font-size: 30px;
+    color: white;
+    border-right: 2px solid white;
+    padding: 4px 8px;
+}
+.cuenta-producto span{
+    position: relative;
+    bottom: 5px;
+    padding-right: 4px;    
+}

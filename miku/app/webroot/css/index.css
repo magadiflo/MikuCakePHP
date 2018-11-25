@@ -58,6 +58,9 @@ hr{
 .barra-menu{
     float: left;
 }
+.menu-font{
+    font-size: 16px;
+}
 .sesion{
     float: right;
 }
@@ -154,47 +157,6 @@ div.carousel-inner .item div p{
                   0 0 25px #1E1E1E,
                   0 0 5px black;
 }
-/* "jumbotron" */
-.title-bienvenida{
-    font-family: 'SCRIPTBL' !important;
-    color: #58C56F !important; 
-}
-.titulo-pasos{
-    padding-left: 50px;
-    font-weight: bold;
-}
-.pasos-fila{
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
-.pasos{
-    color:  rgb(119, 116, 116);
-    font-weight: bold;
-    padding-left: 30px;
-}
-.numberCircle {
-    border-radius: 50%;
-    behavior: url(PIE.htc);
-    width: 40px;
-    height: 40px;
-    padding: 8px;
-    background: #fff;
-    /*border: 2px solid rgb(119, 116, 116);*/
-    border: 2px solid red !important;
-    color: red !important;
-    text-align: center;
-    font-weight: bold;
-    font: 20px Arial, sans-serif;
-    display: inline-block;
-}
-.img-presentacion{
-    width: 300px;
-    border-radius: 50%;
-}
-.texto-presentacion{
-    text-align: justify;
-}
-
 
 /*... MAIN ...*/
 div main{

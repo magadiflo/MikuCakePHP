@@ -14,53 +14,53 @@
                 <div class="frase-registro-final">
                     <p>Solo un paso más, completa tus datos y forma parte de la familia Miku.</p>
                 </div>
-                <form action="#">
+                <?php echo $this->Form->create('User', array('url'=>array('controller'=>'users', 'action'=>'add'))); ?>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="nombre">Nombre:<span class="obligatorio"> *</span></label>
-                                <input type="text" id="nombre" name="nombre" class="form-control" required autofocus>
+                                <label for="name">Nombre:<span class="obligatorio"> *</span></label>
+                                <?php echo $this->Form->input('name', array('class'=>'form-control', 'label'=>false)); ?>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="apellidos">Apellidos:<span class="obligatorio"> *</span></label>
-                                <input type="text" id="apellidos" name="apellidos" class="form-control" required>
+                                <label for="lastname">Apellidos:<span class="obligatorio"> *</span></label>
+                                <?php echo $this->Form->input('lastname', array('class'=>'form-control', 'label'=>false)); ?>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="email-comprueba">Comprueba tu Email:<span class="obligatorio"> *</span></label>
-                                <input type="email" id="email-comprueba" name="email-comprueba" class="form-control" required>
+                                <label for="email">Comprueba tu Email:<span class="obligatorio"> *</span></label>
+                                <?php echo $this->Form->input('email', array('class'=>'form-control', 'label'=>false)); ?>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="telefono">Teléfono o celular:<span class="obligatorio"> *</span></label>
-                                <input type="text" id="telefono" name="telefono" class="form-control" required>
+                                <label for="mobile">Teléfono o celular:<span class="obligatorio"> *</span></label>
+                                <?php echo $this->Form->input('mobile', array('class'=>'form-control', 'label'=>false)); ?>
                             </div>
                         </div>
                     </div>
                     <div class="row">
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="pass-registro">Contraseña:<span class="obligatorio"> *</span></label>
-                                <input type="password" id="pass-registro" name="pass-registro" class="form-control" required>
+                                <label for="username">Usuario:<span class="obligatorio"> *</span></label>
+                                <?php echo $this->Form->input('username', array('class'=>'form-control', 'label'=>false)); ?>
                             </div>
                         </div>
                         <div class="col-lg-6 col-md-6 col-sm-12 col-xs-12">
                             <div class="form-group">
-                                <label for="pass-registro-repite">Repita su contraseña:<span class="obligatorio"> *</span></label>
-                                <input type="password" id="pass-registro-repite" name="pass-registro-repite" class="form-control"
-                                required>
+                                <label for="password">Contraseña:<span class="obligatorio"> *</span></label>
+                                <?php echo $this->Form->input('password', array('class'=>'form-control', 'label'=> false)); ?>
+                                <?php echo $this->Form->input('role', array('value'=>'user', 'type'=>'hidden')); ?>
                             </div>
                         </div>
                     </div>
-                    <button type="submit" id="btn-finalizar-registro" class="btn btn-primary"><i class="fa fa-save"></i>
-                    Finalizar registro</button>
-                </form>
+                    <?php echo $this->Form->button('<i class="fa fa-save"></i> Finalizar registro', 
+                        array('type' => 'submit', 'class' => 'btn btn-primary btn-lg', 'escape' => false)); ?>
+                <?php echo $this->Form->end(); ?>
             </div>
         </div>
     </div>

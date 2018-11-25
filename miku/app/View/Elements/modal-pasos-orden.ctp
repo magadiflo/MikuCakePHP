@@ -9,7 +9,7 @@
           <figure class="logo-iniciar-sesion">
                     <img src="img/logo/Logo-miku-xs.png" width="40">
                 </figure>
-                <h4 class="titulo-pasos">Realice su pedido con 3 simples pasos...</h4>
+                <h4 class="titulo-pasos">Realice su pedido en 3 simples pasos...</h4>
         </div>
         <div class="modal-body">
             <div class="row pasos-fila">
@@ -45,7 +45,7 @@
                     <em><strong>¡Listo!</strong> Nos contactaremos con usted.</em>
                 </div>
             </div>
-            <button class="btn btn-success" data-dismiss="modal">¡Ok entiendo!</button>          
+            <button class="btn btn-success" data-dismiss="modal">¡Ok, Entiendo!</button>          
         </div>
       </div>
     </div>
