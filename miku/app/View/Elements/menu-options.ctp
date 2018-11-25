@@ -51,13 +51,109 @@
                 </ul>
             </li>
         <?php endif; ?>
-        <!-- <li><a href="#"><i class="fa fa-pencil"></i> Pedidos</a></li> -->
-        <!-- <li><a href="#"><i class="fa fa-users"></i> Clientes</a></li> -->
+        <?php if(isset($current_user)): ?>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-laptop"></i> 
+                    Transacción
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <?php echo $this->Html->link(
+                            $this->Html->tag('i', '', array('class' => 'fa fa-cart-plus')).$this->Html->tag('span', ' Mis platillos'),
+                            array('controller' => 'item_previos', 'action' => 'view'),
+                            array('escape'=>false)
+                        );?>
+                    </li>
+                    <li>
+                    <?php if($current_user['role'] == 'admin'){
+                        $titulo = " Órdenes recibidas";
+                    }else{
+                        $titulo = " Mis órdenes";
+                    }?>
+                        <?php echo $this->Html->link(
+                            $this->Html->tag('i', '', array('class' => 'fa fa-truck')).$this->Html->tag('span', $titulo),
+                            array('controller' => 'ordens', 'action'=>'index'),
+                            array('escape'=>false)
+                        );?>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
     </ul>
     
     <ul class="nav navbar-nav navbar-right menu-font">
         <li><a href="#"><i class="fa fa-desktop"></i> Nosotros</a></li>
         <li><a href="#"><i class="fa fa-wechat"></i> Contáctanos</a></li>
+        <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                <i class="fa fa-envelope"></i> 
+                Mensajes
+                <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+                <li>
+                    <?php echo $this->Html->link(
+                        $this->Html->tag('i', '', array('class' => 'fa fa-comments')).$this->Html->tag('span', ' Listar mensajes'),
+                        array('controller'=>'mensajes', 'action' => 'index'),
+                        array('escape'=>false)
+                    );?>
+                </li>
+                <li>
+                    <?php echo $this->Html->link(
+                        $this->Html->tag('i', '', array('class' => 'fa fa-commenting')).$this->Html->tag('span', ' Nuevo mensaje'),
+                        array('controller'=>'mensajes', 'action' => 'add'),
+                        array('escape'=>false)
+                    );?>
+                </li>
+            </ul>
+        </li>
+        <?php if(isset($current_user)): ?>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-user"></i> 
+                    Cuenta
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <?php echo $this->Html->link(
+                            $this->Html->tag('i', '', array('class' => 'fa fa-eye')).$this->Html->tag('span', ' Ver'),
+                            array('controller'=>'users', 'action' => 'index'),
+                            array('escape'=>false)
+                        );?>
+                    </li>
+                    <?php if($current_user['role'] == 'admin'): ?>
+                        <li>
+                            <?php echo $this->Html->link(
+                                $this->Html->tag('i', '', array('class' => 'fa  fa-user-plus')).$this->Html->tag('span', ' Nuevo usuario [admin]'),
+                                array('controller'=>'users', 'action' => 'add'),
+                                array('escape'=>false)
+                            );?>
+                        </li>
+                    <?php endif; ?>
+                    <li role="separator" class="divider"></li>
+                    <li>
+                        <?php echo $this->Html->link(
+                            $this->Html->tag('i', '', array('class' => 'fa  fa-pencil-square')).$this->Html->tag('span', ' Editar datos'),
+                            array('controller'=>'users', 'action' => 'edit', $current_user['id']),
+                            array('escape'=>false)
+                        );?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link(
+                            $this->Html->tag('i', '', array('class' => 'fa fa-edit')).$this->Html->tag('span', ' Editar cuenta'),
+                            array('controller'=>'users', 'action' => 'editAccount', $current_user['id']),
+                            array('escape'=>false)
+                        );?>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
+
+
+
         <?php if(isset($current_user)): ?>
             <li>
                 <?php echo $this->Html->link(

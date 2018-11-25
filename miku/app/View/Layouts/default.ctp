@@ -60,9 +60,9 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 	
 	<!-- Esta variable $current_user, lo definimos en AppController. Si el usuario está
 	autenticado o no para poder mostrar el menú principal -->
-	<?php if(isset($current_user)): ?>
-		<?php echo $this->element('menu'); ?>
-	<?php endif; ?>
+	<!-- < ?php if(isset($current_user)): ?>
+		< ?php //echo $this->element('menu'); ?>
+	< ?php endif; ?> -->
 	<!-- Cuando el usuario haga login, con esta variable obtendremos todos los 
 	datos de dicho, usuario -->
 	<?php //debug($current_user); 
