@@ -49,10 +49,12 @@
 								array('action' => 'view', $user['User']['id']), 
 								array('class'=>'btn btn-sm btn-default fa fa-eye')); ?>
 						<?php if($current_user['role'] == 'admin'):?>
-							<?php echo $this->Form->postLink(__(''), 
-							array('action' => 'delete', $user['User']['id']), 
-							array('class'=>'btn btn-sm btn-danger fa fa-trash'),
-							__('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
+							<?php if($user['User']['id'] != 1): ?>
+								<?php echo $this->Form->postLink(__(''), 
+								array('action' => 'delete', $user['User']['id']), 
+								array('class'=>'btn btn-sm btn-danger fa fa-trash'),
+								__('Are you sure you want to delete # %s?', $user['User']['id'])); ?>
+							<?php endif; ?>
 						<?php endif; ?>
 					</td>
 				</tr>
