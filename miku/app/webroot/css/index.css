@@ -186,7 +186,7 @@ span.precio{
     /*clase de bootsrap col-* posicionado, se tomará como 
     referencia para este .precio*/
     position: absolute;
-    width: 80px;
+    width: 100px;
     height: 50px;
     right: 5px;
     bottom: 150px;
@@ -199,10 +199,10 @@ span.precio{
     border-radius: 5px;
     z-index: 100000;
 }
-.precio:hover{
+/* .precio:hover{
     background: rgb(79, 179, 101);
     color: #CCCCCC;
-}
+} */
 div main div.row div figure figcaption a{
     margin-top: 7px;
     text-align: center;
@@ -214,6 +214,68 @@ div main div.row div figure figcaption a{
 }
 div main div.row div figure figcaption a:hover{
     color: rgb(37, 131, 175);
+}
+.add{
+    margin-top: 15px;
+}
+.add-platillo{
+    margin-top: 15px;
+}
+
+.titulo-cliente{
+    background: #F5E15D;
+    padding: 8px;
+    font-size: 20px;
+}
+.monto-cliente-total{
+    background: #58C56F;
+    display: inline-block;
+    padding: 8px;
+    border-radius: 25px;
+    color: #fff;
+}
+.tam-fuente{
+    font-size: 16px;
+    font-weight: bold;
+    color: rgb(80, 78, 78);
+}
+.users-view{
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+/*platillos/view*/
+.precio-platillo{
+    font-size: 50px;
+    font-family: 'berkshire_swashregular';
+    text-align: center;   
+    color: #58C56F; 
+}
+.descripcion-platillo{
+    text-align: justify;
+    font-size: 20px;
+    background: rgb(240, 220, 175);
+    border-radius: 5px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.estado-platillo{
+    font-size: 16px;
+    font-weight: bold;
+    padding: 10px;
+    border-bottom: 1px solid green;
+    margin-bottom: 10px;
+}
+.categoria-platillo{
+    background: #F5E15D;
+    padding-left: 15px;
+    padding-right: 15px;
+    font-size: 30px;
+    display: inline-block;
+    border-radius: 5px;
+}
+.fila-final{
+    padding-top: 10px;
 }
 
 /*... FOOTER ...*/

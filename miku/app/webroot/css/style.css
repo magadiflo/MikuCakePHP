@@ -1,22 +1,3 @@
-/* body {
-    padding-top: 70px;
-    padding-bottom: 30px;
-  }
-   */
-  /* .theme-dropdown .dropdown-menu {
-    position: static;
-    display: block;
-    margin-bottom: 20px;
-  }
-   */
-  /* .theme-showcase > p > .btn {
-    margin: 5px 0;
-  }
-   */
-  /* .theme-showcase .navbar .container {
-    width: auto;
-  } */
-  
 .error-message {
   color:red;
 }
@@ -30,9 +11,30 @@
   border-radius: 5px;
   box-shadow: rgba(0,0,0,0.5) 5px 5px 10px;
 }
-  .platillo img:hover{
+.platillo img:hover{
     opacity: 0.5;
 } */
+.platillo-hover:hover{
+  opacity: 0.5;
+}
+
+.pedido{
+  font-size: 18px;
+  font-weight: bold;
+  color: rgb(37, 131, 175);
+}
+
+.precio{
+  font-weight: bold;
+  font-size: 18px;
+  color: rgb(100, 95, 95);
+}
+
+.subtotal{
+  font-weight: bold;
+  font-size: 20px;
+  color: green;
+}
 
 .flash-msg{
     position: absolute;
@@ -42,11 +44,11 @@
 }
     /*../Pedidos/view.ctp"*/
 .remove {
-  color: #000000;
+  color: #C9302C;
   font-size: 1.3em;
 }
 .remove:hover {
-  color: #000000;
+  color: rgb(240, 108, 104);
 }
 .tr { text-align: right }
     
@@ -58,12 +60,18 @@
    width: 60px;
  }
 
+.fila-seleccion-platillos{
+  padding-top: 10px;
+  border-bottom: 1px solid #58C56F;
+}
+
 /*Estilos para los mensajes de notificación*/
 #notificacion {
   width: 100%;
-	position: absolute;
+  position: absolute;
 	right: 0;
   left: 0;
+  top: 0;
 	margin-top: 0px;
   padding-top: 0px;
   padding-bottom: 0px;

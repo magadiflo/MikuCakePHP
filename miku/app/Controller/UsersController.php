@@ -23,7 +23,7 @@ class UsersController extends AppController {
 
 	public function isAuthorized($user){
 		if($user['role']=='user'){
-			if(in_array($this->action, array('index', 'view', 'edit', 'editAccount'))){
+			if(in_array($this->action, array('index', 'view', 'edit', 'editAccount', 'autor'))){
 				return true;
 			}else{
 				if($this->Auth->user('id')){//Si el usuario sigue logueado pero no tiene acceso a la acción que está arribita(add, index)
@@ -176,5 +176,9 @@ class UsersController extends AppController {
 												'default', array('class' => 'alert alert-danger'));
 		}
 		return $this->redirect(array('action' => 'index'));
+	}
+
+	public function autor(){
+
 	}
 }

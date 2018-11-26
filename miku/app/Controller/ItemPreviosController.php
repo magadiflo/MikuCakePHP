@@ -8,7 +8,7 @@ class ItemPreviosController extends AppController {
 
 	public function isAuthorized($user){
 		if($user['role']=='user'){
-			if(in_array($this->action, array('view', 'add', 'itemupdate', 'remove', 'quitar', 'recalcular'))){
+			if(in_array($this->action, array('view', 'add', 'itemupdate', 'remove', 'quitar', 'recalcular', 'num_item_selected'))){
 				return true;
 			}else{
 				if($this->Auth->user('id')){//Si el usuario sigue logueado pero no tiene acceso a la acción que está arribita(add, index)
