@@ -61,8 +61,7 @@ class AppController extends Controller {
              //No permitirá mostrar el mensaje de error al autenticarse ya que eso lo
              //mostraremos de una vista especial
             'authError' => false
-        ),
-        'DebugKit.Toolbar'
+        )
     );
     //Antes de que el usuario se loguee, es decir
     //se puedene establecer acceso del usuario sin
