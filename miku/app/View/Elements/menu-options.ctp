@@ -86,29 +86,32 @@
     <ul class="nav navbar-nav navbar-right menu-font">
         <li><a href="#"><i class="fa fa-desktop"></i> Nosotros</a></li>
         <li><a href="#"><i class="fa fa-wechat"></i> Contáctanos</a></li>
-        <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                <i class="fa fa-envelope"></i> 
-                Mensajes
-                <span class="caret"></span>
-            </a>
-            <ul class="dropdown-menu">
-                <li>
-                    <?php echo $this->Html->link(
-                        $this->Html->tag('i', '', array('class' => 'fa fa-comments')).$this->Html->tag('span', ' Listar mensajes'),
-                        array('controller'=>'mensajes', 'action' => 'index'),
-                        array('escape'=>false)
-                    );?>
-                </li>
-                <li>
-                    <?php echo $this->Html->link(
-                        $this->Html->tag('i', '', array('class' => 'fa fa-commenting')).$this->Html->tag('span', ' Nuevo mensaje'),
-                        array('controller'=>'mensajes', 'action' => 'add'),
-                        array('escape'=>false)
-                    );?>
-                </li>
-            </ul>
-        </li>
+        <?php if(isset($current_user)): ?>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                    <i class="fa fa-envelope"></i> 
+                    Mensajes
+                    <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu">
+                    <li>
+                        <?php echo $this->Html->link(
+                            $this->Html->tag('i', '', array('class' => 'fa fa-comments')).$this->Html->tag('span', ' Listar mensajes'),
+                            array('controller'=>'mensajes', 'action' => 'index'),
+                            array('escape'=>false)
+                        );?>
+                    </li>
+                    <li>
+                        <?php echo $this->Html->link(
+                            $this->Html->tag('i', '', array('class' => 'fa fa-commenting')).$this->Html->tag('span', ' Nuevo mensaje'),
+                            array('controller'=>'mensajes', 'action' => 'add'),
+                            array('escape'=>false)
+                        );?>
+                    </li>
+                </ul>
+            </li>
+        <?php endif; ?>
+
         <?php if(isset($current_user)): ?>
             <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown">

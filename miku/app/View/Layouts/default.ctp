@@ -78,9 +78,9 @@ $cakeDescription = __d('cake_dev', '::Miku:: Restaurante online');
 		<?php echo $this->Session->flash('auth'); ?>
 	</div>
 	
-	<div id="container" role="main">
-		<?php echo $this->fetch('content'); ?>
-	</div>
+	<!-- <div id="container" role="main"> -->
+	<?php echo $this->fetch('content'); ?>
+	<!-- </div> -->
 
 	<br>
 	<div id="msg"></div>

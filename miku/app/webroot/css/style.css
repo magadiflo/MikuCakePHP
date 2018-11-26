@@ -26,13 +26,14 @@
 }
 
   /*../Platillos/index.ctp/class="platillo"*/
-.platillo img{
+/* .platillo img{
   border-radius: 5px;
   box-shadow: rgba(0,0,0,0.5) 5px 5px 10px;
 }
   .platillo img:hover{
     opacity: 0.5;
-}
+} */
+
 .flash-msg{
     position: absolute;
     top: 10px; 
@@ -62,9 +63,15 @@
   width: 100%;
 	position: absolute;
 	right: 0;
-	left: 0;
-	margin-top: -25px;
-  padding-top: 25px;
-  font-size: 18px;
-	display:none
+  left: 0;
+	margin-top: 0px;
+  padding-top: 0px;
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  font-size: 20px;
+  display:none;
+}
+
+.contenido-color{
+  background-color: rgb(224, 221, 221);
 }
