@@ -1,56 +1,5 @@
-<!-- <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-    <div class="container">
-        <div class="navbar-header">
-        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-            <span class="sr-only">Toggle navigation</span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-            <span class="icon-bar"></span>
-        </button>
-          < ?php echo $this->Html->link('Miku', array('controller' => 'users', 'action' => 'login'), array('class' => 'navbar-brand')) ?>
-    </div>
-        <div id="navbar" class="navbar-collapse collapse">
-            < ?php echo $this->Form->create('User', array('class' => 'navbar-form navbar-right')); ?>
-                <div class="form-group">
-                < ?php echo $this->Form->input('username', array('label' => false, 'class' => 'form-control', 'placeholder' => 'Usuario')); ?>
-                </div>
-                <div class="form-group">
-                < ?php echo $this->Form->input('password', array('label' => false, 'class' => 'form-control', 'placeholder' => 'Contraseña')); ?>
-                </div>
-                < ?php echo $this->Form->button('Acceder', array('class' => 'btn btn-success')); ?>
-            < ?php echo $this->Form->end(); ?>
-        </div>
-        < !--/.navbar-collapse 
-    </div>
-</nav> -->
-
 <?php echo $this->element('slider'); ?>
 <?php echo $this->Html->css('presentacion'); ?>
-<!-- EL FORMULARIO LO TOMAREMOS COMO REFERENCIA PARA IMPLEMENTARLO EN EL MODAL -->
-<!-- Formulario para registrarse -->
-<!-- <div class="container">
-    <div class="row">
-		<div class="col-md-6">
-			< ?php echo $this->Form->create('User', array('url'=>array('controller'=>'users', 'action'=>'add'))); ?>
-			<fieldset>
-				<legend>< ?php echo __('Nuevo usuario'); ?></legend>
-			< ?php
-				echo $this->Form->input('name', array('class'=>'form-control', 'label'=>'Nombre'));
-				echo $this->Form->input('lastname', array('class'=>'form-control', 'label'=>'Apellidos'));
-				echo $this->Form->input('email', array('class'=>'form-control', 'label'=>'E-mail'));
-				echo $this->Form->input('mobile', array('class'=>'form-control', 'label'=>'Teléfono/Celular'));
-				echo $this->Form->input('username', array('class'=>'form-control', 'label'=>'Usuario'));
-                echo $this->Form->input('password', array('class'=>'form-control', 'label'=>'Contraseña'));
-                echo $this->Form->input('role', array('value'=>'user', 'type'=>'hidden'));
-			?>
-			</fieldset>
-			<p>< ?php echo $this->Form->end(array('label'=>'Registrar', 'class'=>'btn btn-success')); ?></p>
-		</div>
-	</div>
-</div> -->
-<!-- /Formulario para registrarse -->
-
-<!-- Main jumbotron for a primary marketing message or call to action -->
 <br>
 <div class="container">
     <div class="jumbotron">
@@ -62,9 +11,7 @@
     </div>
     <?php echo $this->element('modal-pasos-orden'); ?>
 </div>    
-
 <div class="container">
-    <!-- Example row of columns -->
     <div class="row">
         <div class="col-md-4">
             <h2><span class="fa fa-leaf"></span> Entrada</h2>

@@ -67,13 +67,6 @@
 				</table>
 			</div>
 		</div>
-		<p>
-			<!-- < ?php
-				echo $this->Paginator->counter(array(
-					'format' => __('Page {:page} of {:pages}, showing {:current} records out of {:count} total, starting on record {:start}, ending on {:end}')
-				));
-			?>	 -->
-		</p>
 		<ul class="pagination">
 			<li> <?php echo $this->Paginator->prev('< ' . __('previous'), array('tag' => false), null, array('class' => 'prev disabled')); ?> </li>
 			<?php echo $this->Paginator->numbers(array('separator' => '', 'tag' => 'li', 'currentTag' => 'a', 'currentClass' => 'active')); ?>

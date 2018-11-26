@@ -9,7 +9,7 @@
         </ol>
         <div class="carousel-inner">
             <div class="item active">
-                <img src="img/slider/banner-01.jpg" alt="Imagen de arroz con pato">
+                <?php echo $this->Html->image('slider/banner-01.jpg'); ?>
                 <div class="carousel-caption">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
@@ -22,7 +22,7 @@
                 </div>
             </div>
             <div class="item">
-                <img src="img/slider/banner-02.jpg" alt="Imagen de lomito saltado">
+                <?php echo $this->Html->image('slider/banner-02.jpg'); ?>
                 <div class="carousel-caption">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
@@ -35,7 +35,7 @@
                 </div>
             </div>
             <div class="item">
-                <img src="img/slider/banner-03.jpg" alt="Imagen de causa">
+                <?php echo $this->Html->image('slider/banner-03.jpg'); ?>
                 <div class="carousel-caption">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="item">
-                <img src="img/slider/banner-04.jpg" alt="Imagen de papa a la huancaina">
+                <?php echo $this->Html->image('slider/banner-04.jpg'); ?>
                 <div class="carousel-caption">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
@@ -62,7 +62,7 @@
                 </div>
             </div>
             <div class="item">
-                <img src="img/slider/banner-05.jpg" alt="Imagen de lomito saltado">
+                <?php echo $this->Html->image('slider/banner-05.jpg'); ?>
                 <div class="carousel-caption">
                     <div class="row">
                         <div class="col-xs-12 col-sm-12">
