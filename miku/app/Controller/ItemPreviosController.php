@@ -153,12 +153,12 @@ class ItemPreviosController extends AppController {
 				$this->ItemPrevio->saveAll($pedido_update);
 			}
 		}
-		
-		if($this->request->data['recalcular'] == 'recalcular'){
+
+		if(isset($this->request->data['recalcular']) && $this->request->data['recalcular'] === 'recalcular'){
 			$this->Session->setFlash('Se recalcularon los datos de sus platillos seleccionados.', 'default', array('class'=>'alert alert-success'));
 			return $this->redirect(array('controller'=>'item_previos', 'action'=>'view'));
 
-		}elseif($this->request->data['procesar']=='procesar'){
+		}elseif(isset($this->request->data['procesar']) && $this->request->data['procesar']==='procesar'){
 			return $this->redirect(array('controller'=>'ordens', 'action'=>'add'));
 		}
 	}
